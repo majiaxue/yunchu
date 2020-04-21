@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_64"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="@dimen/dp_18"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:src="@drawable/icon_fanhui" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="升级VIP"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_14"
+        android:layout_marginRight="@dimen/dp_15"
+        android:background="@drawable/bg_updatevip">
+
+        <EditText
+            android:id="@+id/ed_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginTop="@dimen/dp_13"
+            android:layout_marginRight="@dimen/dp_13"
+            android:background="@null"
+            android:hint="请添加您的截图上传说明"
+            android:textSize="@dimen/sp_12" />
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp_70"
+            android:layout_marginRight="@dimen/dp_13"
+            android:text="0/200" />
+        <ImageView
+            android:visibility="gone"
+            android:src="@drawable/vipimg"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_14"
+            android:layout_width="@dimen/dp_95"
+            android:layout_height="@dimen/dp_95"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@id/tv_number"
+            android:id="@+id/photo_rec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:layout_marginTop="@dimen/dp_15" />
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_tijiao"
+        android:layout_marginTop="@dimen/dp_32"
+        android:text="上传"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_button"
+        android:layout_width="@dimen/dp_315"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

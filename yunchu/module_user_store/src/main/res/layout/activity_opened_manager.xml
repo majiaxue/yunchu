@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.opened_manager.OpenedManagerActivity">
+
+    <include layout="@layout/include_status" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45">
+
+        <ImageView
+            android:id="@+id/opened_manager_back"
+            android:layout_width="@dimen/dp_29"
+            android:layout_height="@dimen/dp_35"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/icon_fanhui_bai" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:includeFontPadding="false"
+            android:text="开通超级会员"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/sp_18" />
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="@dimen/dp_345"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/chaojihuiyuan1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:drawableLeft="@drawable/img_v1"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:includeFontPadding="false"
+                    android:text="超级会员"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/dp_10"
+                    android:drawableRight="@drawable/icon_duihao"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="-购物省钱  分享赚钱"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/opened_manager_txt1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_45"
+                    android:includeFontPadding="false"
+                    android:text="永久权益"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/opened_manager_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/opened_manager_txt1"
+                    android:layout_alignLeft="@id/opened_manager_txt1"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_14" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-85dp"
+                android:background="@drawable/bg_beijing"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_52"
+                    android:text="-尊享超级会员权益-"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/opened_manager_rec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:overScrollMode="never" />
+
+                <RelativeLayout
+                    android:id="@+id/opened_manager_address"
+                    android:layout_width="@dimen/dp_345"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@drawable/bg_5_1c1c1c">
+
+                    <TextView
+                        android:id="@+id/opened_manager_receiver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:gravity="center"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/opened_manager_receiver_address"
+                        android:layout_width="@dimen/dp_240"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/opened_manager_receiver"
+                        android:layout_alignLeft="@id/opened_manager_receiver"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:includeFontPadding="false"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/sp_12" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_9"
+                        android:layout_height="@dimen/dp_15"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_8"
+                        android:src="@drawable/icon_gengduo" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_m_10"
+                android:background="@drawable/bg_10_1c1c1c_top"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_345"
+                    android:layout_height="@dimen/dp_65"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:background="@drawable/bg_10_2f2b2b">
+
+                    <TextView
+                        android:id="@+id/opened_manager_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:includeFontPadding="false"
+                        android:text="邀请码"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_33"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/opened_manager_text"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_toRightOf="@id/opened_manager_text"
+                        android:background="@drawable/bg_2_f2c131_bian"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="必填"
+                        android:textColor="#f3c02a"
+                        android:textSize="@dimen/sp_10" />
+
+                    <EditText
+                        android:id="@+id/opened_manager_edit"
+                        android:layout_width="@dimen/dp_308"
+                        android:layout_height="@dimen/dp_22"
+                        android:layout_below="@id/opened_manager_text"
+                        android:layout_alignLeft="@id/opened_manager_text"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="#1c1c1c"
+                        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:hint="请输入邀请码"
+                        android:inputType="number|textPhonetic"
+                        android:paddingLeft="@dimen/sp_10"
+                        android:textColor="#666666"
+                        android:textColorHint="#666666"
+                        android:textSize="@dimen/sp_10" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/opened_manager_payment"
+                    android:layout_width="@dimen/dp_345"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:background="@drawable/bg_20_jianbian_bottom"
+                    android:gravity="center"
+                    android:text="立即支付"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/sp_18" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

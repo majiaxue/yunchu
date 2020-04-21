@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:gravity="center"
+        android:text="超级会员"
+        android:textColor="#fff"
+        android:textSize="@dimen/dp_18"
+        android:textStyle="bold" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="@dimen/dp_345"
+                android:layout_height="@dimen/dp_69"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/bg_5_jianbian_top">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/not_opened_icon"
+                    android:layout_width="@dimen/dp_46"
+                    android:layout_height="@dimen/dp_46"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    app:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/not_opened_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/not_opened_icon"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_toRightOf="@id/not_opened_icon"
+                    android:textColor="#824b3b"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/not_opened_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/not_opened_icon"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_toRightOf="@id/not_opened_icon"
+                    android:textColor="#824b3b"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/not_opened_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/not_opened_icon"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_toRightOf="@id/not_opened_code"
+                    android:text="复制"
+                    android:textColor="#824b3b"
+                    android:textSize="@dimen/sp_12"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/not_opened_name"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:text="邀您成为超级会员"
+                    android:textColor="#824b3b"
+                    android:textSize="@dimen/sp_12" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="@dimen/dp_345"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_345"
+                    android:layout_height="@dimen/dp_193"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/chaojihuyuan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:drawableLeft="@drawable/img_v1"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:includeFontPadding="false"
+                    android:text="超级会员"
+                    android:textColor="#f7bc0c"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="@dimen/dp_11"
+                    android:drawableRight="@drawable/icon_duihao"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:text="-购物省钱  分享赚钱"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_12" />
+
+                <ImageView
+                    android:id="@+id/not_opened_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_50"
+                    android:src="@drawable/text_chaojihuiyuan" />
+
+                <TextView
+                    android:id="@+id/not_opened_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/not_opened_img"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:text="花最少的钱  买优质的东西"
+                    android:textColor="#fff0c4"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:id="@+id/not_opened_linear"
+                    android:layout_width="@dimen/dp_317"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_below="@id/not_opened_txt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:background="@drawable/bg_5_e9ca6f"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:includeFontPadding="false"
+                        android:text="成为超级会员 购物每年最低省5000元"
+                        android:textColor="#8a5100"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:includeFontPadding="false"
+                        android:text="分享玩赚最高35%推广奖励金"
+                        android:textColor="#8a5100"
+                        android:textSize="@dimen/sp_14" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_m_27"
+                android:background="@drawable/bg_beijing"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_52"
+                    android:text="-超级会员权益-"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/not_opened_rec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:overScrollMode="never" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/not_opened_opened_manager"
+                android:layout_width="@dimen/dp_345"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/bg_20_jianbian_bottom"
+                android:drawableLeft="@drawable/img_vip"
+                android:drawablePadding="@dimen/dp_12"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_54"
+                android:text="立即开通超级会员"
+                android:textColor="#644b00"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_345"
+                android:layout_height="@dimen/dp_68"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/bg_10_2f2b2b"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-开通超级会员免费领一份399元大礼包-"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_14" />
+
+                <View
+                    android:layout_width="@dimen/dp_138"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginTop="@dimen/dp_11"
+                    android:layout_marginBottom="@dimen/dp_11"
+                    android:background="#e9ca6f" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="另外赠送400元优惠券"
+                    android:textColor="#e9ca6f"
+                    android:textSize="@dimen/sp_12" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/not_opened_bottom_rec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

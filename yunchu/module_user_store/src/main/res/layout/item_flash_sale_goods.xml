@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_354"
+        android:layout_height="@dimen/dp_125"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@drawable/bg_10_fff">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/flash_sale_goods_rec_image"
+            android:layout_width="@dimen/dp_95"
+            android:layout_height="@dimen/dp_95"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_13"
+            app:roundedCornerRadius="@dimen/dp_5" />
+
+        <TextView
+            android:id="@+id/flash_sale_goods_rec_name"
+            android:layout_width="@dimen/dp_174"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/flash_sale_goods_rec_image"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:layout_toRightOf="@id/flash_sale_goods_rec_image"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="【3瓶装小紫瓶精保湿乳液..."
+            android:textColor="#222222"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/flash_sale_goods_rec_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_10"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_toRightOf="@id/flash_sale_goods_rec_image"
+            android:max="100"
+            android:progressDrawable="@drawable/bg_flash_sale_progress" />
+
+        <TextView
+            android:id="@+id/flash_sale_goods_rec_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@id/flash_sale_goods_rec_progress"
+            android:includeFontPadding="false"
+            android:text="已抢0%"
+            android:textColor="#ff2f09"
+            android:textSize="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/flash_sale_goods_rec_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/flash_sale_goods_rec_image"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:layout_toRightOf="@id/flash_sale_goods_rec_image"
+            android:includeFontPadding="false"
+            android:text="￥39"
+            android:textColor="#fb4119"
+            android:textSize="@dimen/sp_18" />
+
+        <TextView
+            android:id="@+id/flash_sale_goods_rec_type"
+            android:layout_width="@dimen/dp_62"
+            android:layout_height="@dimen/dp_24"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_13"
+            android:background="@drawable/text_12_ff5412"
+            android:gravity="center"
+            android:text="马上抢购"
+            android:textColor="#ff2f09"
+            android:textSize="@dimen/sp_10" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

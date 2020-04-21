@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_348"
+    android:layout_height="@dimen/dp_71"
+    android:background="@drawable/bg_border_5_dedede">
+
+    <TextView
+        android:id="@+id/rv_income_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginTop="@dimen/dp_17"
+        android:includeFontPadding="false"
+        android:text="进账"
+        android:textColor="@color/codeText"
+        android:textSize="@dimen/sp_18" />
+
+    <TextView
+        android:id="@+id/rv_income_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginTop="@dimen/dp_45"
+        android:includeFontPadding="false"
+        android:text="进账时间：2012年1月1日"
+        android:textColor="#999999"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/rv_income_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp_20"
+        android:includeFontPadding="false"
+        android:text="+50.00"
+        android:textColor="@color/codeText"
+        android:textSize="@dimen/sp_24" />
+</RelativeLayout>

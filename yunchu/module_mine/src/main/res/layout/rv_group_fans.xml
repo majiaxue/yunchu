@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_80"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginLeft="@dimen/dp_14"
+    android:layout_marginRight="@dimen/dp_14"
+    android:background="@drawable/bg_rv_group_fans">
+
+    <ImageView
+        android:src="@drawable/icon_denglu"
+        android:id="@+id/rv_group_fans_img"
+        android:layout_width="@dimen/dp_57"
+        android:layout_height="@dimen/dp_57"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_11"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:text="dd"
+        android:id="@+id/rv_group_fans_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_91"
+        android:layout_marginTop="@dimen/dp_22"
+        android:includeFontPadding="false"
+        android:textColor="#fc5917"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:text="@string/fgh_mask_top_pull"
+        android:id="@+id/rv_group_fans_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_91"
+        android:layout_marginTop="@dimen/dp_50"
+        android:includeFontPadding="false"
+        android:textColor="#666666"
+        android:textSize="@dimen/sp_12" />
+</RelativeLayout>

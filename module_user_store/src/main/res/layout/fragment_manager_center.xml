@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1c1c1c"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_status" />
+
+    <LinearLayout
+        android:id="@+id/manager_center_not_opened"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <include layout="@layout/not_opened" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/manager_center_have_opened"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include layout="@layout/have_opened" />
+
+    </LinearLayout>
+
+</LinearLayout>

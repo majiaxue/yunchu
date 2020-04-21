@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_10">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_345"
+        android:layout_height="@dimen/dp_65"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/bg_5_fff">
+
+        <TextView
+            android:id="@+id/manager_order_details_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_13"
+            android:includeFontPadding="false"
+            android:text="支付时间"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/manager_order_details_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/manager_order_details_text1"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_toRightOf="@id/manager_order_details_text1"
+            android:includeFontPadding="false"
+            android:text="2019-08-24  17:14:05"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/manager_order_details_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/manager_order_details_text1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_13"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="预估收入"
+            android:textColor="#999999"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/manager_order_details_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/manager_order_details_message"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_toRightOf="@id/manager_order_details_message"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="￥1.79"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
