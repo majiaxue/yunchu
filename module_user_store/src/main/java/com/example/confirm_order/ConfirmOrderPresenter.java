@@ -163,6 +163,7 @@ public class ConfirmOrderPresenter extends BasePresenter<ConfirmOrderView> {
                     ARouter.getInstance().build("/module_user_store/PaymentActivity")
                             .withSerializable("submitOrderBean", submitOrderBean)
                             .navigation();
+                    LogUtil.e("购物车传的"+submitOrderBean);
 
                 }
 

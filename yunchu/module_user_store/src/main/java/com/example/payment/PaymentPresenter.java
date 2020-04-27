@@ -154,7 +154,7 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
                     }
                 }));
             } else {
-                Map wxMap = MapUtil.getInstance().addParms("totalAmout", submitOrderBean.getTotalAmount()).addParms("orderSn", submitOrderBean.getMasterNo()).addParms("productName", "易购商城").build();
+                Map wxMap = MapUtil.getInstance().addParms("totalAmout", submitOrderBean.getTotalAmount()).addParms("orderSn", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").build();
                 Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9004).postData(CommonResource.WXPAY, wxMap);
                 RetrofitUtil.getInstance().toSubscribe(observable, new OnTripartiteCallBack(new OnDataListener() {
                     @Override

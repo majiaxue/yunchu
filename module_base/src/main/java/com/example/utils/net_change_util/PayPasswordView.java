@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.entity.EventBean;
 import com.example.entity.EventBusBean;
 import com.example.module_base.R;
+import com.example.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -86,5 +87,6 @@ public class PayPasswordView extends LinearLayout implements View.OnClickListene
         this.password=password;
         //Toast.makeText(getContext(), "你输入的密码是：" + password, Toast.LENGTH_SHORT).show();
         EventBus.getDefault().post(new EventBean("password", password));
+        LogUtil.e("密码view"+password);
     }
 }

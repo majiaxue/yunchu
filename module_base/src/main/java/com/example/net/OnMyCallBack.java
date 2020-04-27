@@ -48,11 +48,13 @@ public class OnMyCallBack extends DisposableObserver<ResponseBody> {
             String msg = jsonObject.optString("msg");
             if (CommonResource.CODE_SUCCESS.equals(code)) {
                 listener.onSuccess(data, msg);
-            } else if (CommonResource.TOKEN_EXPIRE.equals(code)) {
-                SPUtil.clear();
-                JpushUtil.deleteAlias();
-                listener.onError(code, msg);
-            } else {
+            }
+//            else if (CommonResource.TOKEN_EXPIRE.equals(code)) {
+//                SPUtil.clear();
+//                JpushUtil.deleteAlias();
+//                listener.onError(code, msg);
+//            }
+            else {
                 listener.onError(code, msg);
             }
         } catch (Exception e) {

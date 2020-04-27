@@ -76,28 +76,28 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
     ImageView yunchuImg;
     @BindView(R2.id.v1)
     View v1;
-    @BindView(R2.id.tv_pingtai)
-    TextView tvPingtai;
-    @BindView(R2.id.tv_tuijiantehui)
-    TextView tvTuijiantehui;
+//    @BindView(R2.id.tv_pingtai)
+//    TextView tvPingtai;
+//    @BindView(R2.id.tv_tuijiantehui)
+//    TextView tvTuijiantehui;
     @BindView(R2.id.img_shucai)
     ImageView imgShucai;
-    @BindView(R2.id.price)
-    TextView price;
-    @BindView(R2.id.food)
-    TextView food;
-    @BindView(R2.id.youshi)
-    TextView youshi;
-    @BindView(R2.id.xianliang)
-    TextView xianliang;
+//    @BindView(R2.id.price)
+//    TextView price;
+//    @BindView(R2.id.food)
+//    TextView food;
+//    @BindView(R2.id.youshi)
+//    TextView youshi;
+//    @BindView(R2.id.xianliang)
+//    TextView xianliang;
     @BindView(R2.id.ji_photo)
     ImageView jiPhoto;
     @BindView(R2.id.v2)
     View v2;
-    @BindView(R2.id.shucai)
-    TextView shucai;
-    @BindView(R2.id.youji)
-    TextView youji;
+//    @BindView(R2.id.shucai)
+//    TextView shucai;
+//    @BindView(R2.id.youji)
+//    TextView youji;
     @BindView(R2.id.ll1)
     LinearLayout ll1;
     @BindView(R2.id.re_yunchu_butie)
@@ -165,6 +165,7 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
         recShou.setLayoutManager(staggeredGridLayoutManager);
         recShou.addItemDecoration(new RvItemDecoration((int) getContext().getResources().getDimension(R.dimen.dp_12), (int) getContext().getResources().getDimension(R.dimen.dp_12)));
         getTab();
+        //presenter.initTabLayout(tab2);
 
         //下拉刷新样式
         CustomHeader customHeader = new CustomHeader(getActivity());
@@ -188,11 +189,13 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
                     LogUtil.e("tab名称---"+saiQu2Beans.getHomePageList().get(i).getName());
                     tab2.addTab(tab2.newTab().setText(saiQu2Beans.getHomePageList().get(i).getName()));
                     fragments.add(new TabListFragment(saiQu2Beans.getHomePageList().get(i).getId()));
+                   // presenter.loadData(saiQu2Beans.getHomePageList().get(i).getId(),1);
                 }
                 tab2.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         yunchuVp.setCurrentItem(tab.getPosition());
+
                     }
 
                     @Override
@@ -208,18 +211,46 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
                 yunchuVp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tab2));
                 VPApter adapter = new VPApter(getChildFragmentManager(), fragments);
                 yunchuVp.setAdapter(adapter);
-                tvPingtai.setText(saiQu2Beans.getPlatformSubsidyList().get(0).getName());
+
                 Glide.with(getContext())
                         .load(saiQu2Beans.getPlatformSubsidyList().get(0).getIcon())
                         .into(imgShucai);
-                food.setText(saiQu2Beans.getPlatformSubsidyList().get(1).getName());
+                imgShucai.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ARouter.getInstance().build("/module_user_store/typeDetail")
+                                .withString("categoryId",saiQu2Beans.getPlatformSubsidyList().get(0).getId()+"")
+                                .withString("newStatus","1")
+                                .navigation();
+                        LogUtil.e("这是id--------"+saiQu2Beans.getPlatformSubsidyList().get(0).getId());
+                    }
+                });
                 Glide.with(getContext())
                         .load(saiQu2Beans.getPlatformSubsidyList().get(1).getIcon())
                         .into(jiPhoto);
-                shucai.setText(saiQu2Beans.getPlatformSubsidyList().get(2).getName());
+                jiPhoto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ARouter.getInstance().build("/module_user_store/typeDetail")
+                                .withString("categoryId",saiQu2Beans.getPlatformSubsidyList().get(1).getId()+"")
+                                .withString("newStatus","1")
+                                .navigation();
+                        LogUtil.e("这是id--------"+saiQu2Beans.getPlatformSubsidyList().get(1).getId());
+                    }
+                });
                 Glide.with(getContext())
                         .load(saiQu2Beans.getPlatformSubsidyList().get(2).getIcon())
                         .into(xihongshi);
+                 xihongshi.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View view) {
+                         ARouter.getInstance().build("/module_user_store/typeDetail")
+                                 .withString("categoryId",saiQu2Beans.getPlatformSubsidyList().get(2).getId()+"")
+                                 .withString("newStatus","1")
+                                 .navigation();
+                         LogUtil.e("这是id--------"+saiQu2Beans.getPlatformSubsidyList().get(2).getId());
+                     }
+                 });
             }
 
             @Override
@@ -242,7 +273,7 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
         llMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ARouter.getInstance().build("/module_user_store/typeDetail").withString("rebateStatus  ","1").navigation();
+                ARouter.getInstance().build("/module_user_store/typeDetail").withString("rebateStatus","1").navigation();
             }
         });
 
@@ -264,15 +295,18 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
         reYunchuButie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ARouter.getInstance().build("/module_user_store/typeDetail")
-                        .withString("categoryId",saiQu2Beans.getPlatformSubsidyList().get(0).getId()+"")
-                        .withString("recommandStatus","1").navigation();
+                for (int i = 0; i < saiQu2Beans.getPlatformSubsidyList().size(); i++) {
+                    LogUtil.e("id+++++++++++++++"+saiQu2Beans.getPlatformSubsidyList().get(i).getId());
+                    if (String.valueOf(saiQu2Beans.getPlatformSubsidyList().get(i).getId())!=null){
+                        ARouter.getInstance().build("/module_user_store/typeDetail")
+                                .withString("categoryId",saiQu2Beans.getPlatformSubsidyList().get(i).getId()+"")
+                                .withString("type","1").navigation();
+                    }else {
+                        LogUtil.e("没有");
+                    }
+                }
             }
         });
-
-
-
-
     }
 
     @Override
@@ -334,7 +368,7 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
         //平台补贴区的特价区的显示隐藏
         //0==》关闭    1=====》开启
         if (visblityBeans.get(0).getStatus()==0){
-            ll1.setVisibility(View.GONE);
+           ll1.setVisibility(View.GONE);
         }else if (visblityBeans.get(0).getStatus()==1){
             ll1.setVisibility(View.VISIBLE);
         }else if (visblityBeans.get(1).getStatus()==0){
@@ -379,5 +413,10 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
     @Override
     public void getImg(String picUrl) {
         Glide.with(getContext()).load(picUrl).into(yunchuImg);
+    }
+
+    @Override
+    public void loadShouAdapter(TuiJianAdapter shouYeAdapter) {
+        recShou.setAdapter(shouYeAdapter);
     }
 }

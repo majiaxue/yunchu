@@ -172,7 +172,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.stx.xhb.xbanner.XBanner
+            <com.example.view.Banner
                 android:id="@+id/goods_detail_xbanner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_350"

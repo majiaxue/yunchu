@@ -16,6 +16,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.mvp.BaseActivity;
+import com.example.type_detail.adapter.BuTieListAdapter;
 import com.example.type_detail.adapter.TypeDetailLstAdapter;
 import com.example.type_detail.adapter.TypeDetailWaterfallAdapter;
 import com.example.user_store.R;
@@ -91,8 +92,8 @@ public class TypeDetailActivity extends BaseActivity<TypeDetailView, TypeDetailP
     String rebateStatus;
     @Autowired(name = "recommandStatus ")
     String recommandStatus ;
-
-
+    @Autowired(name = "newStatus")
+    String newStatus;
     @Override
     public int getLayoutId() {
         return R.layout.activity_type_detail;
@@ -101,6 +102,7 @@ public class TypeDetailActivity extends BaseActivity<TypeDetailView, TypeDetailP
     @Override
     public void initData() {
         ARouter.getInstance().inject(this);
+        //presenter.getBuTieList(categoryId);
         if (isHotSale) {
             index = 1;
             presenter.fromSeeAll();
@@ -109,7 +111,8 @@ public class TypeDetailActivity extends BaseActivity<TypeDetailView, TypeDetailP
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         itemDecoration = new RvItemDecoration((int) getResources().getDimension(R.dimen.dp_13), (int) getResources().getDimension(R.dimen.dp_10));
-        presenter.loadData(searchString, categoryId, isHotSale,rebateStatus);
+        presenter.loadData(searchString, categoryId, isHotSale,rebateStatus,newStatus);
+
 
         //下拉刷新样式
         CustomHeader customHeader = new CustomHeader(this);
@@ -222,7 +225,7 @@ public class TypeDetailActivity extends BaseActivity<TypeDetailView, TypeDetailP
         boolean booleanExtra = intent.getBooleanExtra("isHotSale",false);
         mSearch.setText(searchString);
         LogUtil.e("+++++++booleanExtra+++++"+booleanExtra);
-        presenter.loadData(searchString, categoryId, booleanExtra,rebateStatus);
+        presenter.loadData(searchString, categoryId, booleanExtra,rebateStatus,newStatus);
     }
     @Override
     public void updateTitle(boolean salesVolume, boolean price, boolean credit) {
@@ -246,6 +249,14 @@ public class TypeDetailActivity extends BaseActivity<TypeDetailView, TypeDetailP
     public void refreshSuccess() {
         mRefreshLayout.finishLoadMore();
         mRefreshLayout.finishRefresh();
+    }
+
+    @Override
+    public void loadAdapter(BuTieListAdapter lstAdapter) {
+        mRv.setLayoutManager(linearLayoutManager);
+        mRv.removeItemDecoration(itemDecoration);
+        mRv.setAdapter(lstAdapter);
+
     }
 
     @Override

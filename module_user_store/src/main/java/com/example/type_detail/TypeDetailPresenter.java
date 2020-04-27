@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.example.adapter.MyRecyclerAdapter;
+import com.example.bean.ButieListBean;
 import com.example.bean.HotSaleBean;
 import com.example.common.CommonResource;
 import com.example.mvp.BasePresenter;
@@ -18,6 +19,7 @@ import com.example.net.OnMyCallBack;
 import com.example.net.RetrofitUtil;
 import com.example.search.UserSearchActivity;
 import com.example.shop_home.ShopHomeActivity;
+import com.example.type_detail.adapter.BuTieListAdapter;
 import com.example.type_detail.adapter.TypeDetailLstAdapter;
 import com.example.type_detail.adapter.TypeDetailWaterfallAdapter;
 import com.example.user_store.R;
@@ -52,6 +54,7 @@ public class TypeDetailPresenter extends BasePresenter<TypeDetailView> {
     private String searchInfo;
     private String id;
     private int pagetNum =1;
+    private BuTieListAdapter lstAdapter2;
 
     public TypeDetailPresenter(Context context) {
         super(context);
@@ -62,7 +65,7 @@ public class TypeDetailPresenter extends BasePresenter<TypeDetailView> {
 
     }
 
-    public void loadData(String searchString, String categoryId, boolean isHotSale,String rebateStatus) {
+    public void loadData(String searchString, String categoryId, boolean isHotSale,String rebateStatus,String newStatus) {
         ProcessDialogUtil.showProcessDialog(mContext);
 //        WaitDialog.show((AppCompatActivity)mContext,null);
         searchInfo = searchString == null ? "" : searchString;
@@ -80,7 +83,7 @@ public class TypeDetailPresenter extends BasePresenter<TypeDetailView> {
             if ("".equals(id)) {
                 map = MapUtil.getInstance().addParms("searchInfo", searchInfo).addParms("pageNum", pagetNum).build();
             } else {
-                map = MapUtil.getInstance().addParms("searchInfo", searchInfo).addParms("pageNum", pagetNum).addParms("categoryId", "").addParms("rebateStatus",rebateStatus).build();
+                map = MapUtil.getInstance().addParms("searchInfo", searchInfo).addParms("pageNum", pagetNum).addParms("categoryId", categoryId).addParms("newStatus",newStatus).build();
             }
         }
         Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9001).getData(CommonResource.HOTNEWSEARCH, map);
@@ -271,6 +274,37 @@ public class TypeDetailPresenter extends BasePresenter<TypeDetailView> {
             @Override
             public void onError(String errorCode, String errorMsg) {
                 getView().refreshSuccess();
+            }
+        }));
+    }
+
+    public void getBuTieList(String categoryId1){
+        Map categoryId = MapUtil.getInstance().addParms("categoryId", categoryId1).build();
+        Observable data = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9001).getData(CommonResource.BUTIELIST, categoryId);
+        RetrofitUtil.getInstance().toSubscribe(data,new OnMyCallBack(new OnDataListener() {
+            @Override
+            public void onSuccess(String result, String msg) {
+                LogUtil.e("这是列表------------"+result);
+                final List<ButieListBean> butieListBeans = JSON.parseArray(result, ButieListBean.class);
+                if (getView()!=null){
+                  lstAdapter2 = new BuTieListAdapter(mContext, butieListBeans, R.layout.rv_type_detail_lst);
+                    getView().loadAdapter(lstAdapter2);
+                }
+                lstAdapter2.setOnItemClick(new MyRecyclerAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(RecyclerView parent, View view, int position) {
+                        LogUtil.e("走了---------");
+                        ARouter.getInstance().build("/module_user_store/GoodsDetailActivity")
+                                .withString("id",butieListBeans.get(position).getId()+"")
+                                .navigation();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(String errorCode, String errorMsg) {
+
             }
         }));
     }

@@ -29,6 +29,7 @@ import com.example.bean.AddCartBean;
 import com.example.bean.AssessBean;
 import com.example.bean.BannerBean;
 import com.example.bean.ChooseInsideBean;
+import com.example.bean.ContactUsBean;
 import com.example.bean.HotSaleBean;
 import com.example.bean.OrderConfirmBean;
 import com.example.bean.ParmsBean;
@@ -443,6 +444,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                         if (isCan){
                             if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
                                 sp1Position = position;
+                                LogUtil.e("这是图片---------"+sp1List.get(sp1Position).getPicUrl());
                                 Glide.with(mContext).load(sp1List.get(sp1Position).getPicUrl()).into(img);
                                 if (attrSize == 1) {
                                     price.setText("￥" + sp1List.get(sp1Position).getVipPrice());
@@ -655,7 +657,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                 }
                 type.setText(sb);
                 LogUtil.e("限购"+userGoodsDetail.getLimitNum());
-                if (quantity>userGoodsDetail.getLimitNum()){
+                if (userGoodsDetail.getLimitNum()!=0&&quantity>userGoodsDetail.getLimitNum()){
                     Toast.makeText(mContext, "限购"+userGoodsDetail.getLimitNum()+"件", Toast.LENGTH_SHORT).show();
                 }else {
                     count.setText("" + quantity);
@@ -1574,7 +1576,6 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     orderConfirmBean.setStock(dataList.get(sp1Position).getStock());
                     orderConfirmBean.setProductId(userGoodsDetail.getId() + "");
                     orderConfirmBean.setProductCategoryId(userGoodsDetail.getProductCategoryId() + "");
-
                     orderConfirmBean.setProductSn(userGoodsDetail.getProductSn());
                     orderConfirmBean.setPromotionPrice(sp1List.get(sp1Position).getPrice());
                     orderConfirmBean.setProductAttr(userGoodsDetail.getXsProductAttributes().get(0).getName() + ":" + sp1List.get(sp1Position).getContent());
@@ -1582,12 +1583,13 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     orderConfirmBean.setUseIntegration(0);
                     orderConfirmBean.setGiftGrowth(userGoodsDetail.getGiftPoint() * quantity);
                     orderConfirmBean.setIntegration(userGoodsDetail.getSelfBuy() * quantity);
+                    orderConfirmBean.setLimitNum(userGoodsDetail.getLimitNum());
                     double vipPrice = sp1List.get(sp1Position).getVipPrice();
                     orderConfirmBean.setVipPrice(Double.valueOf(vipPrice));
-                    if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
+                    if (vipPrice!=0&&SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
                         orderConfirmBean.setProductPrice(Double.valueOf(vipPrice));
                     }else {
-                        orderConfirmBean.setProductPrice(userGoodsDetail.getPrice());
+                        orderConfirmBean.setProductPrice(sp1List.get(sp1Position).getPrice());
                     }
 
                 } else if (attrSize == 2) {
@@ -1611,14 +1613,15 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     orderConfirmBean.setProductAttr(userGoodsDetail.getXsProductAttributes().get(0).getName() + "：" + sp1List.get(sp1Position).getContent() + "、" + userGoodsDetail.getXsProductAttributes().get(1).getName() + "：" + sp2List.get(sp2Position).getContent());
                     orderConfirmBean.setSellerType(userGoodsDetail.getSellerType());
                     orderConfirmBean.setUseIntegration(0);
+                    orderConfirmBean.setLimitNum(userGoodsDetail.getLimitNum());
                     orderConfirmBean.setGiftGrowth(userGoodsDetail.getGiftPoint() * quantity);
                     orderConfirmBean.setIntegration(userGoodsDetail.getSelfBuy() * quantity);
                     double vipPrice = sp1List.get(sp1Position).getVipPrice();
                     orderConfirmBean.setVipPrice(Double.valueOf(vipPrice));
-                    if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
+                    if (vipPrice!=0&&SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
                         orderConfirmBean.setProductPrice(Double.valueOf(vipPrice));
                     }else {
-                        orderConfirmBean.setProductPrice(userGoodsDetail.getPrice());
+                        orderConfirmBean.setProductPrice(sp1List.get(sp1Position).getPrice());
                     }
 
                 } else {
@@ -1645,12 +1648,13 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     orderConfirmBean.setUseIntegration(0);
                     orderConfirmBean.setGiftGrowth(userGoodsDetail.getGiftPoint() * quantity);
                     orderConfirmBean.setIntegration(userGoodsDetail.getSelfBuy() * quantity);
+                    orderConfirmBean.setLimitNum(userGoodsDetail.getLimitNum());
                     double vipPrice = sp1List.get(sp1Position).getVipPrice();
                     orderConfirmBean.setVipPrice(Double.valueOf(vipPrice));
-                    if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
+                    if (vipPrice!=0&&SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
                         orderConfirmBean.setProductPrice(Double.valueOf(vipPrice));
                     }else {
-                        orderConfirmBean.setProductPrice(userGoodsDetail.getPrice());
+                        orderConfirmBean.setProductPrice(sp1List.get(sp1Position).getPrice());
                     }
                 }
                 Intent intent = new Intent(mContext, OrderConfirmActivity.class);
@@ -1690,6 +1694,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     orderConfirmBean.setGiftGrowth(userGoodsDetail.getGiftPoint() == 0 ? 0 : userGoodsDetail.getGiftPoint() * quantity);
                     orderConfirmBean.setIntegration(userGoodsDetail.getSelfBuy() == 0 ? 0 : userGoodsDetail.getSelfBuy() * quantity);
                     orderConfirmBean.setVipPrice(Double.valueOf(userGoodsDetail.getVipPrice()));
+                    orderConfirmBean.setLimitNum(userGoodsDetail.getLimitNum());
                     if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
                         orderConfirmBean.setProductPrice(Double.valueOf(userGoodsDetail.getVipPrice()));
                     }else {
@@ -1717,6 +1722,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     orderConfirmBean.setSellerType(userGoodsDetail.getSellerType());
                     orderConfirmBean.setUseIntegration(0);
                     orderConfirmBean.setVipPrice(Double.valueOf(userGoodsDetail.getVipPrice()));
+                    orderConfirmBean.setLimitNum(userGoodsDetail.getLimitNum());
                     orderConfirmBean.setGiftGrowth(userGoodsDetail.getGiftPoint() == 0 ? 0 : userGoodsDetail.getGiftPoint() * quantity);
                     orderConfirmBean.setIntegration(userGoodsDetail.getSelfBuy() == 0 ? 0 : userGoodsDetail.getSelfBuy() * quantity);
                     if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
@@ -1749,6 +1755,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     orderConfirmBean.setVipPrice(Double.valueOf(userGoodsDetail.getVipPrice()));
                     orderConfirmBean.setGiftGrowth(userGoodsDetail.getGiftPoint() == 0 ? 0 : userGoodsDetail.getGiftPoint() * quantity);
                     orderConfirmBean.setIntegration(userGoodsDetail.getSelfBuy() == 0 ? 0 : userGoodsDetail.getSelfBuy() * quantity);
+                    orderConfirmBean.setLimitNum(userGoodsDetail.getLimitNum());
                     if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
                         orderConfirmBean.setProductPrice(Double.valueOf(userGoodsDetail.getVipPrice()));
                     }else {
@@ -1785,7 +1792,8 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     cartBean.setProductId(userGoodsDetail.getId() + "");
                     cartBean.setProductSkuId(dataList.get(sp1Position).getId() + "");
                     cartBean.setProductName(userGoodsDetail.getName());
-                    cartBean.setProductPic(dataList.get(sp1Position).getPic());
+                    //cartBean.setProductPic(dataList.get(sp1Position).getPic());
+                    cartBean.setProductPic(userGoodsDetail.getPic());
                     cartBean.setProductSn(userGoodsDetail.getProductSn());
                     cartBean.setProductSubTitle(userGoodsDetail.getSubTitle());
                     cartBean.setQuantity((int) quantity);
@@ -1795,6 +1803,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     cartBean.setUserId(SPUtil.getUserCode());
                     cartBean.setSellerType(userGoodsDetail.getSellerType()+"");
                     cartBean.setLimitNum(userGoodsDetail.getLimitNum());
+                    double vipPrice= sp1List.get(sp1Position).getVipPrice();
                     if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
                         if (sp1List.get(sp1Position).getVipPrice()==0){
                             cartBean.setPrice(sp1List.get(sp1Position).getPrice());
@@ -1812,7 +1821,8 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     cartBean.setProductId(userGoodsDetail.getId() + "");
                     cartBean.setProductSkuId(stock1(sp1List.get(sp1Position).getContent(), sp2Position).getId() + "");
                     cartBean.setProductName(userGoodsDetail.getName());
-                    cartBean.setProductPic(stock1(sp1List.get(sp1Position).getContent(), sp2Position).getPic());
+                   // cartBean.setProductPic(stock1(sp1List.get(sp1Position).getContent(), sp2Position).getPic());
+                    cartBean.setProductPic(userGoodsDetail.getPic());
                     cartBean.setProductSn(userGoodsDetail.getProductSn());
                     cartBean.setProductSubTitle(userGoodsDetail.getSubTitle());
                     cartBean.setQuantity((int) quantity);
@@ -1841,7 +1851,8 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                     cartBean.setProductId(userGoodsDetail.getId() + "");
                     cartBean.setProductSkuId(stock12(sp1List.get(sp1Position).getContent(), sp2List.get(sp2Position).getContent(), sp3Position).getId() + "");
                     cartBean.setProductName(userGoodsDetail.getName());
-                    cartBean.setProductPic(stock12(sp1List.get(sp1Position).getContent(), sp2List.get(sp2Position).getContent(), sp3Position).getPic());
+                    //cartBean.setProductPic(stock12(sp1List.get(sp1Position).getContent(), sp2List.get(sp2Position).getContent(), sp3Position).getPic());
+                    cartBean.setProductPic(userGoodsDetail.getPic());
                     cartBean.setProductSn(userGoodsDetail.getProductSn());
                     cartBean.setProductSubTitle(userGoodsDetail.getSubTitle());
                     cartBean.setQuantity((int) quantity);
@@ -1863,6 +1874,7 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
                         cartBean.setPrice(stock12(sp1List.get(sp1Position).getContent(), sp2List.get(sp2Position).getContent(), sp3Position).getPrice());
                     }
                 }
+                LogUtil.e("添加购物车的bean---------"+cartBean.toString());
                 String jsonString = JSON.toJSONString(cartBean);
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonString);
                 Observable<ResponseBody> observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9004).postHeadWithBody(CommonResource.ADD_CART, requestBody, SPUtil.getToken());
@@ -1926,10 +1938,24 @@ public class GoodsDetailPresenter extends BasePresenter<GoodsDetailView> {
     }
 
     public void callServe() {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        Uri data = Uri.parse("tel:" + "18394455777");
-        intent.setData(data);
-        mContext.startActivity(intent);
+        Observable<ResponseBody> dataWithout = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_4001).getDataWithout(CommonResource.PHOTO);
+        RetrofitUtil.getInstance().toSubscribe(dataWithout,new OnMyCallBack(new OnDataListener() {
+            @Override
+            public void onSuccess(String result, String msg) {
+                LogUtil.e("客服的接口------------"+result);
+                ContactUsBean contactUsBean = JSON.parseObject(result, ContactUsBean.class);
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + contactUsBean.getInfo());
+                intent.setData(data);
+                mContext.startActivity(intent);
+            }
+
+            @Override
+            public void onError(String errorCode, String errorMsg) {
+
+            }
+        }));
+
     }
 
     public void seeBigPicture(int position) {

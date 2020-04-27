@@ -58,6 +58,7 @@
                     />
 
                 <TextView
+
                     android:id="@+id/user_mine_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -79,7 +80,7 @@
                     android:textSize="@dimen/sp_12" />
                 <TextView
                     android:id="@+id/or_vip"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_15"
                     android:textColor="#ffffff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

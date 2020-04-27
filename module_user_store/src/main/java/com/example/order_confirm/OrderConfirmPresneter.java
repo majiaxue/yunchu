@@ -113,6 +113,7 @@ public class OrderConfirmPresneter extends BasePresenter<OrderConfirmView> {
             @Override
             public void onError(String errorCode, String errorMsg) {
                 isCan = false;
+                LogUtil.e("运费错误---"+errorCode+"-----------"+errorMsg);
                 Toast.makeText(mContext, "没有获取到运费，请返回重试", Toast.LENGTH_SHORT).show();
             }
         }));
@@ -141,9 +142,6 @@ public class OrderConfirmPresneter extends BasePresenter<OrderConfirmView> {
                     submitOrderBean = JSON.parseObject(result, SubmitOrderBean.class);
                     submitOrderBean.setProductName("goods");
                     submitOrderBean.setProductCategoryId(bean.getProductCategoryId());
-                    if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
-                        submitOrderBean.setVipPrice(bean.getVipPrice());
-                    }
                     ARouter.getInstance().build("/module_user_store/PaymentActivity")
                             .withSerializable("submitOrderBean", submitOrderBean)
                             .navigation();

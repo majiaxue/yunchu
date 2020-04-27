@@ -49,16 +49,22 @@ public class CartChildRecAdapter extends MyRecyclerAdapter<CartBean> {
         holder.setText(R.id.cart_child_price, "￥" + data.getPrice());
         final AddAndSubView addAndSub = holder.getView(R.id.cart_child_add_and_sub);
         LogUtil.e("限购--------"+data.getLimitNum());
-        if (data.getLimitNum()==data.getQuantity()){
+        if (addAndSub.getNumber()==data.getLimitNum()){
             Toast.makeText(context, "限购"+data.getLimitNum()+"件", Toast.LENGTH_SHORT).show();
         }else {
             addAndSub.setNumber(data.getQuantity());
+            LogUtil.e("选择的数量----"+addAndSub.getNumber());
         }
 
         addAndSub.setOnNumberChangeListener(new AddAndSubView.OnNumberChangeListener() {
             @Override
             public void onNumberChange(int num) {
-                onCartListChangeListener.onProductNumberChange(position, addAndSub.getNumber());
+                if (data.getLimitNum()!=0&&addAndSub.getNumber()>data.getLimitNum()){
+                    Toast.makeText(context, "限购"+data.getLimitNum()+"件", Toast.LENGTH_SHORT).show();
+                }else if (data.getLimitNum()==0){
+                    onCartListChangeListener.onProductNumberChange(position, addAndSub.getNumber());
+                }
+
             }
         });
 

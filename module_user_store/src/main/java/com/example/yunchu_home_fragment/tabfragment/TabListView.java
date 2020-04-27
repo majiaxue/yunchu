@@ -5,4 +5,6 @@ import com.example.yunchu_home_fragment.adapter.TuiJianAdapter;
 
 public interface TabListView  extends IView {
     void loadSaleHot(TuiJianAdapter saleHotAdapter);
+
+    void refresh();
 }

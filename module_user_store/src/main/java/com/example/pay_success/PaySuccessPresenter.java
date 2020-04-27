@@ -54,6 +54,7 @@ public class PaySuccessPresenter extends BasePresenter<PaySuccessView> {
             ARouter.getInstance().build("/module_user_mine/MineOrderActivity").navigation();
             ((Activity) mContext).finish();
         }
+        ((Activity) mContext).finish();
     }
 
     public void jumpToHome() {

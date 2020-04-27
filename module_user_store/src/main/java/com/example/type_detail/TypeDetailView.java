@@ -1,6 +1,7 @@
 package com.example.type_detail;
 
 import com.example.mvp.IView;
+import com.example.type_detail.adapter.BuTieListAdapter;
 import com.example.type_detail.adapter.TypeDetailLstAdapter;
 import com.example.type_detail.adapter.TypeDetailWaterfallAdapter;
 
@@ -12,4 +13,6 @@ public interface TypeDetailView extends IView {
     void updateTitle(boolean salesVolume, boolean price, boolean credit);
 
     void refreshSuccess();
+
+    void loadAdapter(BuTieListAdapter lstAdapter);
 }

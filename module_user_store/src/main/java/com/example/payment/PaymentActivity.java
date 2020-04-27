@@ -71,7 +71,8 @@ public class PaymentActivity extends BaseActivity<PaymentView, PaymentPresenter>
     @Autowired(name = "levelId")
     String levelId;
     private boolean isYuE = false;
-    private String pasWord;
+
+    private boolean isZhi = false;
 
     @Override
     public int getLayoutId() {
@@ -82,21 +83,16 @@ public class PaymentActivity extends BaseActivity<PaymentView, PaymentPresenter>
     public void initData() {
         ARouter.getInstance().inject(this);
         EventBus.getDefault().register(this);
-//        if (type == 1) {
-//            paymentMoney.setText("￥" + totalAmount);
-//
-//        } else {
 
-//        }
-        if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
+        if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")) {
             if (type == 2) {
                 paymentMoney.setText("￥" + payMoney);
                 paymentYuE.setVisibility(View.GONE);
-            }else {
+            } else {
                 paymentYuE.setVisibility(View.VISIBLE);
-                paymentMoney.setText("￥" + submitOrderBean.getVipPrice());
+                paymentMoney.setText("￥" + submitOrderBean.getTotalAmount());
             }
-        }else {
+        } else {
             if (type == 2) {
                 paymentMoney.setText("￥" + payMoney);
                 paymentYuE.setVisibility(View.GONE);
@@ -141,50 +137,45 @@ public class PaymentActivity extends BaseActivity<PaymentView, PaymentPresenter>
                 paymentZfbImg.setImageResource(R.drawable.icon_weixuanzhong);
                 paymentYueEImg.setImageResource(R.drawable.icon_xuanzhong);
                 isYuE = true;
+                isWeChat = false;
+
             }
         });
 
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                paymentBtn.setEnabled(false);
-                if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
-                    if (isYuE) {
-                        openPayPasswordDialog();
-                    } else if (type == 2) {
-                        presenter.getLevelPay(isWeChat, submitOrderBean.getVipPrice()+"", levelId);
-                    } else {
-                        presenter.pay(isWeChat, submitOrderBean, type);
-                    }
-                }else {
-                    if (isYuE) {
-                        openPayPasswordDialog();
-                    } else if (type == 2) {
-                        presenter.getLevelPay(isWeChat, payMoney, levelId);
-                    } else {
-                        presenter.pay(isWeChat, submitOrderBean, type);
-                    }
+                paymentBtn.setEnabled(false);
+                if (isYuE) {
+                    openPayPasswordDialog();
+                } else if (type == 2) {
+                    presenter.getLevelPay(isWeChat, submitOrderBean.getTotalAmount() + "", levelId);
+                } else {
+                    presenter.pay(isWeChat, submitOrderBean, type);
                 }
-
             }
         });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(EventBean eventBusBean) {
-        if ("password".equals(eventBusBean.getCode())) {
-            pasWord = eventBusBean.getMsg();
-            LogUtil.e("这是password----------" + pasWord);
-            getMoney();
+        if (!isZhi) {
+            isZhi = true;
+            if ("password".equals(eventBusBean.getCode())) {
+                String pasWord = eventBusBean.getMsg();
+                LogUtil.e("这是password----------" + pasWord);
+                getMoney(pasWord);
+            }
         }
     }
 
-    private void getMoney() {
-        Map build = MapUtil.getInstance().addParms("payPassword", pasWord).addParms("userCode", SPUtil.getStringValue(CommonResource.USERCODE)).build();
+    private void getMoney(String password) {
+        Map build = MapUtil.getInstance().addParms("payPassword", password).addParms("userCode", SPUtil.getStringValue(CommonResource.USERCODE)).build();
         Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_4001).postData(CommonResource.YANZHENG, build);
         RetrofitUtil.getInstance().toSubscribe(observable, new OnMyCallBack(new OnDataListener() {
             @Override
             public void onSuccess(String result, String msg) {
+                LogUtil.e("呵呵呵哒-------");
                 LogUtil.e("支付密码----------" + result);
                 ProcessDialogUtil.showProcessDialog(PaymentActivity.this);
                 if (result.equals("支付密码正确")) {
@@ -232,7 +223,7 @@ public class PaymentActivity extends BaseActivity<PaymentView, PaymentPresenter>
 
     @Override
     public void callBack() {
-//        paymentBtn.setEnabled(true);
+        paymentBtn.setEnabled(true);
     }
 
     private void changePayType() {

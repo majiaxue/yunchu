@@ -131,7 +131,7 @@ public class ModuleBaseApplication extends MultiDexApplication {
 
     public static void initShare() {
         //YigoushangchengYigoushangcheng11
-        PlatformConfig.setWeixin("wx03a212c4b39fdee8", "6f64b42e52a29964a8394e26f84151a9");
+        PlatformConfig.setWeixin(CommonResource.WXAPPID, "989a80533a141046150808a636463cd1");
         PlatformConfig.setQQZone("101850298", "a816d304b5ce5440747c47629b6cea51");
 //        PlatformConfig.setWeixin("wx7df9caffc7db4493", "abd4af996218993f30493a732b2f964f");
     }

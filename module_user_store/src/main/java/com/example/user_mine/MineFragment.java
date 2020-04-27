@@ -431,7 +431,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                 mineHeader.setImageURI(Uri.parse(SPUtil.getStringValue(CommonResource.USER_PIC)));
                 browsingHistoryCount.setText(SPUtil.getIntValue("lljl") + "");
                 goodsCollectionCount.setText(SPUtil.getIntValue("spsc") + "");
-                mineLevel.setVisibility(View.GONE);
+                //orVip.setVisibility(View.GONE);
                 //userMineOpenedManager.setVisibility(View.VISIBLE);
             } else {
                 userMineName.setText("请注册/登陆");
@@ -440,7 +440,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                 browsingHistoryCount.setText(0 + "");
                 goodsCollectionCount.setText(0 + "");
                 userMineMyIntervigationCount.setText(0 + "");
-                mineLevel.setVisibility(View.GONE);
+                //orVip.setVisibility(View.GONE);
                // userMineOpenedManager.setVisibility(View.GONE);
             }
         }
@@ -460,7 +460,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             mineHeader.setImageURI(Uri.parse(SPUtil.getStringValue(CommonResource.USER_PIC)));
             browsingHistoryCount.setText(SPUtil.getIntValue("lljl") + "");
             goodsCollectionCount.setText(SPUtil.getIntValue("spsc") + "");
-            mineLevel.setVisibility(View.GONE);
+            //orVip.setVisibility(View.GONE);
             //userMineOpenedManager.setVisibility(View.VISIBLE);
         } else {
             userMineName.setText("请注册/登陆");
@@ -469,7 +469,7 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
             browsingHistoryCount.setText(0 + "");
             goodsCollectionCount.setText(0 + "");
             userMineMyIntervigationCount.setText(0 + "");
-            mineLevel.setVisibility(View.GONE);
+            //orVip.setVisibility(View.GONE);
             //userMineOpenedManager.setVisibility(View.GONE);
 
         }

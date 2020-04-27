@@ -95,8 +95,9 @@ public class ShoppingCartPresenter extends BasePresenter<ShoppingCartView> {
                         cartChildRecAdapter.setOnCartListChangeListener(new CartChildRecAdapter.OnCartListChangeListener() {
                             @Override
                             public void onProductNumberChange(int childPosition, int number) {
-                                cartBeanList.get(childPosition).setQuantity(number);
-                                reviseStutas();
+                                    cartBeanList.get(childPosition).setQuantity(number);
+                                    reviseStutas();
+
                             }
                         });
 

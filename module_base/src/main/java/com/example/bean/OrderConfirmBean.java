@@ -131,6 +131,15 @@ public class OrderConfirmBean implements Serializable {
 
     private double giftGrowth;
     private double vipPrice;
+    private int limitNum;
+
+    public int getLimitNum() {
+        return limitNum;
+    }
+
+    public void setLimitNum(int limitNum) {
+        this.limitNum = limitNum;
+    }
 
     public double getVipPrice() {
         return vipPrice;
@@ -427,6 +436,12 @@ public class OrderConfirmBean implements Serializable {
                 ", productSn='" + productSn + '\'' +
                 ", promotionPrice=" + promotionPrice +
                 ", productPrice=" + productPrice +
+                ", useIntegration=" + useIntegration +
+                ", sellerType=" + sellerType +
+                ", integration=" + integration +
+                ", giftGrowth=" + giftGrowth +
+                ", vipPrice=" + vipPrice +
+                ", limitNum=" + limitNum +
                 '}';
     }
 }

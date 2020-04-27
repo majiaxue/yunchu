@@ -20,6 +20,7 @@ import com.example.mvp.BaseActivity;
 import com.example.user_store.R;
 import com.example.user_store.R2;
 import com.example.utils.ArithUtil;
+import com.example.utils.LogUtil;
 import com.example.utils.SPUtil;
 
 import butterknife.BindView;
@@ -103,6 +104,7 @@ public class OrderConfirmActivity extends BaseActivity<OrderConfirmView, OrderCo
     public void initData() {
         Intent intent = getIntent();
         confirmBean = (OrderConfirmBean) intent.getSerializableExtra("order");
+        LogUtil.e("确认订单的界面------"+confirmBean.toString());
         includeTitle.setText("确认订单");
         orderConfirmShopName.setText(confirmBean.getSellerName());
         Glide.with(this).load(confirmBean.getPic()).into(orderConfirmImg);
@@ -172,9 +174,15 @@ public class OrderConfirmActivity extends BaseActivity<OrderConfirmView, OrderCo
         orderConfirmAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (confirmBean.getQuantity() < confirmBean.getStock()) {
-                    confirmBean.setQuantity(confirmBean.getQuantity() + 1);
-                    presenter.getPostage(confirmBean);
+                    if (confirmBean.getLimitNum()!=0&&Integer.valueOf(orderConfirmCount.getText().toString())==confirmBean.getLimitNum()){
+                        Toast.makeText(OrderConfirmActivity.this, "限购"+confirmBean.getLimitNum()+"件", Toast.LENGTH_SHORT).show();
+                    }else {
+                        confirmBean.setQuantity(confirmBean.getQuantity() + 1);
+                        presenter.getPostage(confirmBean);
+                    }
+
                 }
             }
         });
@@ -184,7 +192,7 @@ public class OrderConfirmActivity extends BaseActivity<OrderConfirmView, OrderCo
             public void onClick(View v) {
                 confirmBean.setRemark(orderConfirmEdit.getText().toString());
                 presenter.submit(confirmBean);
-                orderConfirmSubmit.setEnabled(false);
+                //orderConfirmSubmit.setEnabled(false);
             }
         });
 
@@ -221,7 +229,7 @@ public class OrderConfirmActivity extends BaseActivity<OrderConfirmView, OrderCo
 
     @Override
     public void payFail() {
-        orderConfirmSubmit.setEnabled(true);
+        //orderConfirmSubmit.setEnabled(true);
     }
 
     @Override

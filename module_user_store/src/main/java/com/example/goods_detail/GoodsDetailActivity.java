@@ -44,8 +44,9 @@ import com.example.utils.RvItemDecoration;
 import com.example.utils.SPUtil;
 import com.example.utils.SpaceItemDecoration;
 import com.example.utils.TxtUtil;
+import com.example.view.Banner;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.stx.xhb.xbanner.XBanner;
+
 
 import org.w3c.dom.Text;
 
@@ -61,7 +62,7 @@ import butterknife.ButterKnife;
 @Route(path = "/module_user_store/GoodsDetailActivity")
 public class GoodsDetailActivity extends BaseActivity<GoodsDetailView, GoodsDetailPresenter> implements GoodsDetailView, NestedScrollView.OnScrollChangeListener {
     @BindView(R2.id.goods_detail_xbanner)
-    XBanner goodsDetailXbanner;
+    Banner goodsDetailXbanner;
     @BindView(R2.id.goods_detail_name)
     TextView goodsDetailName;
     @BindView(R2.id.goods_detail_price)
@@ -165,6 +166,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailView, GoodsDeta
     int type;
     UserGoodsDetail date=new UserGoodsDetail();
     List<View> views=new ArrayList<>();
+    List<String> bannerList;
 
     private List<BannerBean.RecordsBean> images = new ArrayList<>();
     private VideoView videoView;
@@ -216,55 +218,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailView, GoodsDeta
         goodsDetailRvCommend.addItemDecoration(new RvItemDecoration((int) getResources().getDimension(R.dimen.dp_12), (int) getResources().getDimension(R.dimen.dp_12)));
         //轮播图
         LogUtil.e("轮播imageslist----------"+images.toString());
-        goodsDetailXbanner.setBannerData(R.layout.image_fresco,images);
-
-        goodsDetailXbanner.loadImage(new XBanner.XBannerAdapter() {
-            @Override
-            public void loadBanner(XBanner banner, Object model, View view, int position) {
-                SimpleDraweeView bannerImage = view.findViewById(R.id.banner_image);
-                LinearLayout ll = view.findViewById(R.id.ll);
-                final VideoView videoView=new VideoView(GoodsDetailActivity.this);
-                final ImageView imageView=new ImageView(GoodsDetailActivity.this);
-                // GoodsDetailActivity.this.bofang = view.findViewById(R.id.img_bofang);
-//                videoView = view.findViewById(R.id.jz_video_play);
-//                bofang = view.findViewById(R.id.img_bo);
-
-                if (date.getVideo()!=null){
-                    if (position==0){
-                        ll.addView(videoView);
-                        ll.addView(imageView);
-//                        bofang.setVisibility(View.VISIBLE);
-//                        videoView.setVisibility(View.VISIBLE);
-                    }else {
-                        ll.removeView(videoView);
-                        ll.removeView(imageView);
-                    }
-                }else {
-                    ll.removeView(videoView);
-                    ll.removeView(imageView);;
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-                }
-                //设置视频控制器
-                videoView.setMediaController(new MediaController(GoodsDetailActivity.this));
-
-                //播放完成回调
-                videoView.setOnCompletionListener( new MyPlayerOnCompletionListener());
-//                bannerImage.setImageResource((int) images.get(position));
-                bannerImage.setImageURI(Uri.parse(images.get(position).getXBannerUrl()));
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        videoView.setVideoPath(date.getVideo()); //设置视频路径
-                        videoView.start();//开始播放视频
-                    }
-                });
-            }
-        });
-
-        goodsDetailScroll.setOnScrollChangeListener(this);
+        setBannerList();
         if (id == null) {
             Intent intent = getIntent();
             id = intent.getStringExtra("id");
@@ -282,18 +236,8 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailView, GoodsDeta
         }
     }
 
-    class MyPlayerOnCompletionListener implements MediaPlayer.OnCompletionListener {
+    private void setBannerList() {
 
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-            videoView.start();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        videoView.start();
     }
 
     @Override
@@ -416,10 +360,7 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailView, GoodsDeta
                 presenter.jumpToCart(from);
             }
         });
-//        String detailHtml = bean.getDetailHtml();
-//        String varjs = "<script type='text/javascript'> \nwindow.onload = function()\n{var $img = document.getElementsByTagName('img');for(var p in  $img){$img[p].style.width = '100%'; $img[p].style.height ='auto'}}</script>";
-//        //替换img属性
-//        buy2upWebview.loadDataWithBaseURL(null,varjs + detailHtml, "text/html", "UTF-8",null);
+
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -591,7 +532,23 @@ public class GoodsDetailActivity extends BaseActivity<GoodsDetailView, GoodsDeta
     @Override
     public void loadBanner(List<BannerBean.RecordsBean> list) {
         this.images = list;
-        goodsDetailXbanner.setBannerData(R.layout.image_fresco, list);
+        bannerList=new ArrayList<>();
+        LogUtil.e("loadbanner"+list.toString());
+        LogUtil.e("date.getVideo---------"+date.getVideo());
+        if (!date.getVideo().equals("")){
+            for (int i = 0; i < list.size(); i++) {
+                bannerList.add(date.getVideo());
+                bannerList.add(list.get(i).getPicUrl());
+            }
+        }else if (date.getVideo().equals("")){
+            for (int i = 0; i < list.size(); i++) {
+                bannerList.add(list.get(i).getPicUrl());
+            }
+        }
+        LogUtil.e("bannerList====="+bannerList.toString());
+        goodsDetailXbanner.setDataList(bannerList);
+        goodsDetailXbanner.setImgDelyed(5000);
+        goodsDetailXbanner.startAutoPlay();
     }
 
     @Override

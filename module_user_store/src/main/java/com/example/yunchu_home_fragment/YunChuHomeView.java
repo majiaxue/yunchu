@@ -37,4 +37,6 @@ public interface YunChuHomeView extends IView {
     void refresh();
 
     void getImg(String picUrl);
+
+    void loadShouAdapter(TuiJianAdapter shouYeAdapter);
 }

@@ -114,6 +114,9 @@
         <activity
             android:name="com.example.yunchu_home_fragment.activity.WebActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.systemnotice.SystemNoticeActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

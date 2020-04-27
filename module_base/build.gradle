@@ -171,4 +171,8 @@ dependencies {
 
     //
     api 'org.apache.commons:commons-lang3:3.7'
+    api 'com.youth.banner:banner:1.4.10'
+    //implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    //implementation 'androidx.viewpager:viewpager:1.0.0'
+    //implementation 'com.shuyu:GSYVideoPlayer:7.1.3'
 }

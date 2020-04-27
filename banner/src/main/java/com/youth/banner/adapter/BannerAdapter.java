@@ -41,7 +41,7 @@ public abstract class BannerAdapter<T, VH extends RecyclerView.ViewHolder> exten
         int real = getRealPosition(position);
         onBindView(holder, mDatas.get(real), real, getRealCount());
         if (mOnBannerListener != null)
-            holder.itemView.setOnClickListener(view -> mOnBannerListener.OnBannerClick(mDatas.get(real), real));
+            holder.itemView.setOnClickListener(view -> mOnBannerListener.OnBannerClick2(mDatas.get(real), real));
     }
 
     @NonNull

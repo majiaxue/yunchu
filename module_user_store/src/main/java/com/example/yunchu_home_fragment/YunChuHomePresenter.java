@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.bumptech.glide.Glide;
@@ -68,6 +69,10 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
     private List<NavBarBean.RecordsBean> navbarList = new ArrayList<>();
     private TeJiaAdapter saleHotAdapter;
     private String[] split1;
+    private List<String> list;
+    private List<TuiJIanBean.DataBean> dataBeans=new ArrayList<>();
+    private TuiJianAdapter shouYeAdapter;
+    private TabBean saiQu2Beans;
 
     public YunChuHomePresenter(Context context) {
         super(context);
@@ -75,6 +80,50 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
 
     @Override
     protected void onViewDestroy() {
+
+    }
+
+    public void initTabLayout(final TabLayout tabLayout){
+
+        Observable<ResponseBody> dataWithout = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9001).getDataWithout(CommonResource.TAB);
+        RetrofitUtil.getInstance().toSubscribe(dataWithout,new OnMyCallBack(new OnDataListener() {
+            @Override
+            public void onSuccess(String result, String msg) {
+                LogUtil.e("这是类目的接口---------" + result);
+
+                saiQu2Beans = JSON.parseObject(result, TabBean.class);
+                LogUtil.e("解析后---"+saiQu2Beans.toString());
+                for (int i = 0; i < saiQu2Beans.getHomePageList().size(); i++) {
+                    LogUtil.e("tab名称---"+saiQu2Beans.getHomePageList().get(i).getName());
+                    tabLayout.addTab(tabLayout.newTab().setText(saiQu2Beans.getHomePageList().get(i).getName()));
+                }
+                tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                    @Override
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        for (int i = 0; i < saiQu2Beans.getHomePageList().size(); i++) {
+                           loadData(saiQu2Beans.getHomePageList().get(i).getId(),1);
+                        }
+
+                    }
+
+                    @Override
+                    public void onTabUnselected(TabLayout.Tab tab) {
+
+                    }
+
+                    @Override
+                    public void onTabReselected(TabLayout.Tab tab) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onError(String errorCode, String errorMsg) {
+                LogUtil.e("tablayout错了"+errorCode+"-----------------"+errorMsg);
+            }
+        }));
 
     }
 
@@ -97,6 +146,54 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
 
             }
         }));
+    }
+
+    public void loadData(int id, final int pagrSize){
+        {
+            LogUtil.e("这是id-------------"+id);
+            //天天特价
+            Map map = MapUtil.getInstance().addParms("categoryId", id).addParms("newStatus", "1").addParms("pageNum",pagrSize).build();
+            Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9001).getData(CommonResource.HOTNEWSEARCH, map);
+            RetrofitUtil.getInstance().toSubscribe(observable, new OnMyCallBack(new OnDataListener() {
+                @Override
+                public void onSuccess(String result, String msg) {
+                    getView().refresh();
+                    LogUtil.e("首页推荐: " + result);
+                    final TuiJIanBean hotSaleBean = JSON.parseObject(result, new TypeReference<TuiJIanBean>() {
+                    }.getType());
+                    if (hotSaleBean != null) {
+                        if (pagrSize==1){
+                            dataBeans.clear();
+                        }
+                        dataBeans.addAll(hotSaleBean.getData());
+                        shouYeAdapter = new TuiJianAdapter(mContext, dataBeans, R.layout.item_tab_list);
+                        if (getView()!=null){
+                            getView().loadShouAdapter(shouYeAdapter);
+                        }else {
+                            saleHotAdapter.notifyDataSetChanged();
+                        }
+
+                        saleHotAdapter.setOnItemClick(new MyRecyclerAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(RecyclerView parent, View view, int position) {
+                                ARouter.getInstance()
+                                        .build("/module_user_store/GoodsDetailActivity")
+                                        .withString("id", dataBeans.get(position).getId() + "")
+                                        .withString("sellerId", dataBeans.get(position).getSellerId()+"")
+                                        .withString("commendId", dataBeans.get(position).getProductCategoryId() + "")
+                                        .navigation();
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onError(String errorCode, String errorMsg) {
+                    LogUtil.e("热销商品: " + errorMsg);
+                }
+            }));
+
+        }
     }
 
 
@@ -131,13 +228,17 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
 //                result.split(",");
                 GonggaoBean gonggaoBean = JSON.parseObject(result, GonggaoBean.class);
                 data = gonggaoBean.getData();
+                final List<String> list2=new ArrayList<>();
                 for (int i = 0; i < data.size(); i++) {
                    split1 = data.get(i).split(",");
+                   list = Arrays.asList(split1);
+                   LogUtil.e("分割hhh----"+list.toString());
+                   list2.addAll(list);
                 }
-                final List<String> list = Arrays.asList(split1);
+
                 LogUtil.e("分割---"+list.toString());
                 views.clear();
-                for (int i = 0; i < list.size(); i++) {
+                for (int i = 0; i < list2.size(); i++) {
                     final int position = i;
                     //设置滚动的单个布局
                     LinearLayout moreView = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.txt, null);
@@ -145,13 +246,21 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
                     TextView marqueeMessage = moreView.findViewById(R.id.txt1);
 
                     //进行对控件赋值
-                    marqueeMessage.setText(data.get(i));
+                    marqueeMessage.setText(list2.get(i));
 
                     //添加到循环滚动数组里面去
                     views.add(moreView);
                     if (getView() != null) {
                         getView().lodeMarquee(views);
                     }
+                    final int finalI = i;
+                    marqueeMessage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ARouter.getInstance().build("/model_user_store/SystemNoticeActivity")
+                                    .withString("content",list2.get(finalI)).navigation();
+                        }
+                    });
                 }
             }
 
@@ -220,6 +329,8 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
         }));
     }
 
+
+
     public void getData(final int hotSaleIndex){
         //天天特价
         Map map = MapUtil.getInstance().addParms("pageNum", hotSaleIndex).addParms("saleDesc", "1").addParms("rebateStatus","1").build();
@@ -228,14 +339,12 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
             @Override
             public void onSuccess(String result, String msg) {
                 LogUtil.e("天天特价: " + result);
-                TeJIaBean hotSaleBean = JSON.parseObject(result, new TypeReference<TeJIaBean>() {
-                }.getType());
-                if (hotSaleBean != null) {
-                    if (hotSaleIndex==1){
-                        saleHotList.clear();
-                    }
-                    saleHotList.addAll(hotSaleBean.getData());
+                TeJIaBean teJIaBean = JSON.parseObject(result, TeJIaBean.class);
+                saleHotList.addAll(teJIaBean.getData());
                     saleHotAdapter = new TeJiaAdapter(mContext, saleHotList, R.layout.item_tejia);
+                    if (getView()!=null){
+                        getView().loadSaleHot(saleHotAdapter);
+                    }
                     saleHotAdapter.setOnItemClick(new MyRecyclerAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(RecyclerView parent, View view, int position) {
@@ -247,15 +356,14 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
                         }
                     });
                     if (getView() != null) {
-                        getView().loadSaleHot(saleHotAdapter);
+
                         getView().refresh();
                     }
-                }
             }
 
             @Override
             public void onError(String errorCode, String errorMsg) {
-                LogUtil.e("热销商品: " + errorMsg);
+                LogUtil.e("热销商品:-------------- " + errorMsg);
             }
         }));
 

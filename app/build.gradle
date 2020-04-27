@@ -8,7 +8,7 @@ android {
     defaultConfig {
         //com.example.yigou
         //com.example.yunchushengxian
-        applicationId "com.example.yigou"
+        applicationId "com.example.yunchushengxian"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode

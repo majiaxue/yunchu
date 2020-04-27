@@ -163,7 +163,7 @@ public class CommonResource {
     public static final String QUERYXSQGSPLIST = "/rest/goods/queryXsqgSpList";//限时抢购
     public static final String REMOVEZJSC = "/rest/user/removezjsc";//删除足迹或者收藏
 
-    public static final String WXAPPID = "wx4ef460a8c748e71c";  //本：wx03a212c4b39fdee8
+    public static final String WXAPPID = "wx44971af05c36d345";  //本：wx03a212c4b39fdee8
     public static final String CODE_SUCCESS = "0";  //联网成功
     public static final String TOKEN_EXPIRE = "2";    //token过期
     public static final String ERROR = "ERROR";
@@ -229,5 +229,5 @@ public class CommonResource {
     public static final String SHOUBANNER="/rest/parameter/homeAdvertiseDown";
     ///rest/getCustomerService
     public static final String PHOTO="/rest/getCustomerService";
-
+    public static final String BUTIELIST="/rest/goods/getGoodsList";
 }

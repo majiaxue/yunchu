@@ -120,7 +120,7 @@ public class LocalPayPresenter extends BasePresenter<LocalPayView> {
         if (type == 0) {
             final IWXAPI api = WXAPIFactory.createWXAPI(mContext, CommonResource.WXAPPID, false);
 
-            Map map = MapUtil.getInstance().addParms("totalAmout", money).addParms("orderSn", orderSn).addParms("productName", "易购商城").build();
+            Map map = MapUtil.getInstance().addParms("totalAmout", money).addParms("orderSn", orderSn).addParms("productName", "云厨生鲜").build();
             Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9004).postData(CommonResource.WXPAY, map);
             RetrofitUtil.getInstance().toSubscribe(observable, new OnTripartiteCallBack(new OnDataListener() {
                 @Override
@@ -153,7 +153,7 @@ public class LocalPayPresenter extends BasePresenter<LocalPayView> {
                 }
             }));
         } else if (type == 1) {
-            Map map = MapUtil.getInstance().addParms("totalAmount", money).addParms("masterNo", orderSn).addParms("productName", "易购商城").addParms("userCode", SPUtil.getUserCode()).build();
+            Map map = MapUtil.getInstance().addParms("totalAmount", money).addParms("masterNo", orderSn).addParms("productName", "云厨生鲜").addParms("userCode", SPUtil.getUserCode()).build();
             ProcessDialogUtil.showProcessDialog(mContext);
 //            WaitDialog.show((AppCompatActivity)mContext,null);
             Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9004).postHead(CommonResource.TOPAY, map, SPUtil.getToken());
@@ -175,7 +175,7 @@ public class LocalPayPresenter extends BasePresenter<LocalPayView> {
             }));
         } else if (type == 2) {
             Map map = MapUtil.getInstance().addParms("masterNo", orderSn).addParms("totalAmount", money)
-                    .addParms("productName", "易购商城").addParms("userCode", SPUtil.getUserCode()).addParms("sellerId", sellerId).build();
+                    .addParms("productName", "云厨生鲜").addParms("userCode", SPUtil.getUserCode()).addParms("sellerId", sellerId).build();
             if (chooseCoupon != null) {
                 map.put("couponId", chooseCoupon.getId());
             }

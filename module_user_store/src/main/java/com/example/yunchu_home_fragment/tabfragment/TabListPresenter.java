@@ -42,20 +42,30 @@ public class TabListPresenter extends BasePresenter<TabListView> {
     protected void onViewDestroy() {
 
     }
-    public void getData(int id){
+    public void getData(int id, final int pagrSize){
         LogUtil.e("这是id-------------"+id);
         //天天特价
-        Map map = MapUtil.getInstance().addParms("categoryId", id).addParms("newStatus", "1").build();
+        Map map = MapUtil.getInstance().addParms("categoryId", id).addParms("newStatus", "1").addParms("pageNum",pagrSize).build();
         Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9001).getData(CommonResource.HOTNEWSEARCH, map);
         RetrofitUtil.getInstance().toSubscribe(observable, new OnMyCallBack(new OnDataListener() {
             @Override
             public void onSuccess(String result, String msg) {
+                getView().refresh();
                 LogUtil.e("首页推荐: " + result);
                 final TuiJIanBean hotSaleBean = JSON.parseObject(result, new TypeReference<TuiJIanBean>() {
                 }.getType());
                 if (hotSaleBean != null) {
+                    if (pagrSize==1){
+                        dataBeans.clear();
+                    }
                     dataBeans.addAll(hotSaleBean.getData());
                     saleHotAdapter = new TuiJianAdapter(mContext, dataBeans, R.layout.item_tab_list);
+                    if (getView()!=null){
+                        getView().loadSaleHot(saleHotAdapter);
+                    }else {
+                        saleHotAdapter.notifyDataSetChanged();
+                    }
+
                     saleHotAdapter.setOnItemClick(new MyRecyclerAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(RecyclerView parent, View view, int position) {
@@ -67,9 +77,6 @@ public class TabListPresenter extends BasePresenter<TabListView> {
                                     .navigation();
                         }
                     });
-                    if (getView() != null) {
-                        getView().loadSaleHot(saleHotAdapter);
-                    }
                 }
             }
 

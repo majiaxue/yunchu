@@ -123,7 +123,16 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
 //            Toast.makeText(mContext, "微信对接中,请使用支付宝支付", Toast.LENGTH_SHORT).show();
             final IWXAPI api = WXAPIFactory.createWXAPI(mContext, CommonResource.WXAPPID, false);
             if (type == 1) {
-                Map map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("user_code", SPUtil.getUserCode()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "易购商城").build();
+               Map map=new HashMap();
+//                if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
+//                     map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getVipPrice()).addParms("user_code", SPUtil.getUserCode()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").build();
+//                }else {
+//                     map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("user_code", SPUtil.getUserCode()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").build();
+//                }
+                map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("user_code", SPUtil.getUserCode()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").build();
+
+                LogUtil.e("价钱--"+submitOrderBean.getTotalAmount());
+               // Map map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("user_code", SPUtil.getUserCode()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").build();
                 Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9004).postData(CommonResource.WXPAYPAY, map);
                 RetrofitUtil.getInstance().toSubscribe(observable, new OnTripartiteCallBack(new OnDataListener() {
                     @Override
@@ -156,14 +165,22 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
                     }
                 }));
             } else {
-                Map wxMap = MapUtil.getInstance().addParms("totalAmout", submitOrderBean.getTotalAmount()).addParms("orderSn", submitOrderBean.getMasterNo()).addParms("productName", "易购商城").build();
+                Map wxMap=new HashMap();
+//                if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
+//                     wxMap = MapUtil.getInstance().addParms("totalAmout", submitOrderBean.getVipPrice()).addParms("orderSn", submitOrderBean.getMasterNo()).addParms("productName", "易购商城").build();
+//                }else {
+//                    wxMap = MapUtil.getInstance().addParms("totalAmout", submitOrderBean.getTotalAmount()).addParms("orderSn", submitOrderBean.getMasterNo()).addParms("productName", "易购商城").build();
+//
+//                }
+                wxMap = MapUtil.getInstance().addParms("totalAmout", submitOrderBean.getTotalAmount()).addParms("orderSn", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").build();
+
+                LogUtil.e("这是价钱----===="+submitOrderBean.getTotalAmount());
                 Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9004).postData(CommonResource.WXPAY, wxMap);
                 RetrofitUtil.getInstance().toSubscribe(observable, new OnTripartiteCallBack(new OnDataListener() {
                     @Override
                     public void onSuccess(String result, String msg) {
                         LogUtil.e("微信支付-------------->" + result);
                         try {
-
                             WeChatPayBean payBean = JSON.parseObject(result, WeChatPayBean.class);
                             PayReq request = new PayReq();
                             request.appId = payBean.getAppid();
@@ -191,15 +208,19 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
         } else {
             if (type == 1) {
                 Map map = new HashMap();
-                if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
-                    Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
-                    String jsonString = JSON.toJSONString(build);
-                     map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getVipPrice()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("map", jsonString).addParms("type", 1).build();
-                }else {
-                    Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
-                    String jsonString = JSON.toJSONString(build);
-                     map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("map", jsonString).addParms("type", 1).build();
-                }
+//                if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
+//                    Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
+//                    String jsonString = JSON.toJSONString(build);
+//                     map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getVipPrice()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("map", jsonString).addParms("type", 1).build();
+//                }else {
+//                    Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
+//                    String jsonString = JSON.toJSONString(build);
+//                     map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("map", jsonString).addParms("type", 1).build();
+//                }
+
+                Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
+                String jsonString = JSON.toJSONString(build);
+                map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("map", jsonString).addParms("type", 1).build();
 
                 ProcessDialogUtil.showProcessDialog(mContext);
 //                WaitDialog.show((AppCompatActivity) mContext, null);
@@ -223,15 +244,18 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
                 }));
             } else {
                 Map map = new HashMap();
-                if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
-                    Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
-                    String jsonString = JSON.toJSONString(build);
-                    map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getVipPrice()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("userCode", SPUtil.getUserCode()).addParms("type", 0).build();
-                }else {
-                    Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
-                    String jsonString = JSON.toJSONString(build);
-                    map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("userCode", SPUtil.getUserCode()).addParms("type", 0).build();
-                }
+//                if (SPUtil.getStringValue(CommonResource.LEVELID).equals("2")){
+//                    Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
+//                    String jsonString = JSON.toJSONString(build);
+//                    map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getVipPrice()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("userCode", SPUtil.getUserCode()).addParms("type", 0).build();
+//                }else {
+//                    Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
+//                    String jsonString = JSON.toJSONString(build);
+//                    map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("userCode", SPUtil.getUserCode()).addParms("type", 0).build();
+//                }
+                Map build = MapUtil.getInstance().addParms("user_code", SPUtil.getUserCode()).build();
+                String jsonString = JSON.toJSONString(build);
+                map = MapUtil.getInstance().addParms("totalAmount", submitOrderBean.getTotalAmount()).addParms("masterNo", submitOrderBean.getMasterNo()).addParms("productName", "云厨生鲜").addParms("userCode", SPUtil.getUserCode()).addParms("type", 0).build();
                 ProcessDialogUtil.showProcessDialog(mContext);
 //                WaitDialog.show((AppCompatActivity) mContext, null);
 
@@ -368,7 +392,6 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
             RetrofitUtil.getInstance().toSubscribe(observable, new OnMyCallBack(new OnDataListener() {
                 @Override
                 public void onSuccess(String result, String msg) {
-
                     LogUtil.e("支付宝：" + result);
                     AliPayBean aliPayBean = JSON.parseObject(result, AliPayBean.class);
                     info = aliPayBean.getBody();
