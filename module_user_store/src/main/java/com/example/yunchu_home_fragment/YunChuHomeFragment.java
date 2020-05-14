@@ -76,28 +76,12 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
     ImageView yunchuImg;
     @BindView(R2.id.v1)
     View v1;
-//    @BindView(R2.id.tv_pingtai)
-//    TextView tvPingtai;
-//    @BindView(R2.id.tv_tuijiantehui)
-//    TextView tvTuijiantehui;
     @BindView(R2.id.img_shucai)
     ImageView imgShucai;
-//    @BindView(R2.id.price)
-//    TextView price;
-//    @BindView(R2.id.food)
-//    TextView food;
-//    @BindView(R2.id.youshi)
-//    TextView youshi;
-//    @BindView(R2.id.xianliang)
-//    TextView xianliang;
     @BindView(R2.id.ji_photo)
     ImageView jiPhoto;
     @BindView(R2.id.v2)
     View v2;
-//    @BindView(R2.id.shucai)
-//    TextView shucai;
-//    @BindView(R2.id.youji)
-//    TextView youji;
     @BindView(R2.id.ll1)
     LinearLayout ll1;
     @BindView(R2.id.re_yunchu_butie)
@@ -184,6 +168,7 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
                 LogUtil.e("这是类目的接口---------" + result);
                 fragments = new ArrayList<>();
                 saiQu2Beans = JSON.parseObject(result, TabBean.class);
+                yunchuVp.setOffscreenPageLimit(saiQu2Beans.getPlatformSubsidyList().size());
                 LogUtil.e("解析后---"+saiQu2Beans.toString());
                 for (int i = 0; i < saiQu2Beans.getHomePageList().size(); i++) {
                     LogUtil.e("tab名称---"+saiQu2Beans.getHomePageList().get(i).getName());
@@ -212,6 +197,7 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
                 VPApter adapter = new VPApter(getChildFragmentManager(), fragments);
                 yunchuVp.setAdapter(adapter);
 
+
                 Glide.with(getContext())
                         .load(saiQu2Beans.getPlatformSubsidyList().get(0).getIcon())
                         .into(imgShucai);
@@ -221,6 +207,7 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
                         ARouter.getInstance().build("/module_user_store/typeDetail")
                                 .withString("categoryId",saiQu2Beans.getPlatformSubsidyList().get(0).getId()+"")
                                 .withString("newStatus","1")
+                                .withString("type","2")
                                 .navigation();
                         LogUtil.e("这是id--------"+saiQu2Beans.getPlatformSubsidyList().get(0).getId());
                     }
@@ -234,6 +221,7 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
                         ARouter.getInstance().build("/module_user_store/typeDetail")
                                 .withString("categoryId",saiQu2Beans.getPlatformSubsidyList().get(1).getId()+"")
                                 .withString("newStatus","1")
+                                .withString("type","2")
                                 .navigation();
                         LogUtil.e("这是id--------"+saiQu2Beans.getPlatformSubsidyList().get(1).getId());
                     }
@@ -247,6 +235,7 @@ public class YunChuHomeFragment extends BaseFragment<YunChuHomeView, YunChuHomeP
                          ARouter.getInstance().build("/module_user_store/typeDetail")
                                  .withString("categoryId",saiQu2Beans.getPlatformSubsidyList().get(2).getId()+"")
                                  .withString("newStatus","1")
+                                 .withString("type","2")
                                  .navigation();
                          LogUtil.e("这是id--------"+saiQu2Beans.getPlatformSubsidyList().get(2).getId());
                      }

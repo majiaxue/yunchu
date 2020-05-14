@@ -65,7 +65,7 @@ public class TypeDetailPresenter extends BasePresenter<TypeDetailView> {
 
     }
 
-    public void loadData(String searchString, String categoryId, boolean isHotSale,String rebateStatus,String newStatus) {
+    public void loadData(String searchString, String categoryId, boolean isHotSale,String rebateStatus,String newStatus,String type) {
         ProcessDialogUtil.showProcessDialog(mContext);
 //        WaitDialog.show((AppCompatActivity)mContext,null);
         searchInfo = searchString == null ? "" : searchString;
@@ -83,7 +83,11 @@ public class TypeDetailPresenter extends BasePresenter<TypeDetailView> {
             if ("".equals(id)) {
                 map = MapUtil.getInstance().addParms("searchInfo", searchInfo).addParms("pageNum", pagetNum).build();
             } else {
-                map = MapUtil.getInstance().addParms("searchInfo", searchInfo).addParms("pageNum", pagetNum).addParms("categoryId", categoryId).addParms("newStatus",newStatus).build();
+                if (type.equals("1")){
+                    map=MapUtil.getInstance().addParms("categoryId",categoryId).addParms("searchInfo", searchInfo).addParms("pageNum", pagetNum).build();
+                }else {
+                    map = MapUtil.getInstance().addParms("searchInfo", searchInfo).addParms("pageNum", pagetNum).addParms("categoryId", categoryId).addParms("newStatus",newStatus).build();
+                }
             }
         }
         Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9001).getData(CommonResource.HOTNEWSEARCH, map);

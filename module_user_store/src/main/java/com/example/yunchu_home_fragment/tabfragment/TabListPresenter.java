@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.example.adapter.MyRecyclerAdapter;
+import com.example.bean.HotSaleBean;
 import com.example.bean.TeJIaBean;
 import com.example.bean.TuiJIanBean;
 import com.example.common.CommonResource;
@@ -31,7 +32,7 @@ import io.reactivex.Observable;
 
 public class TabListPresenter extends BasePresenter<TabListView> {
 
-    private List<TuiJIanBean.DataBean> dataBeans=new ArrayList<>();
+    private List<HotSaleBean.DataBean> dataBeans=new ArrayList<>();
     private TuiJianAdapter saleHotAdapter;
 
     public TabListPresenter(Context context) {
@@ -44,6 +45,7 @@ public class TabListPresenter extends BasePresenter<TabListView> {
     }
     public void getData(int id, final int pagrSize){
         LogUtil.e("这是id-------------"+id);
+        LogUtil.e("这是page----------"+pagrSize);
         //天天特价
         Map map = MapUtil.getInstance().addParms("categoryId", id).addParms("newStatus", "1").addParms("pageNum",pagrSize).build();
         Observable observable = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_9001).getData(CommonResource.HOTNEWSEARCH, map);
@@ -52,17 +54,19 @@ public class TabListPresenter extends BasePresenter<TabListView> {
             public void onSuccess(String result, String msg) {
                 getView().refresh();
                 LogUtil.e("首页推荐: " + result);
-                final TuiJIanBean hotSaleBean = JSON.parseObject(result, new TypeReference<TuiJIanBean>() {
+                final HotSaleBean hotSaleBean = JSON.parseObject(result, new TypeReference<HotSaleBean>() {
                 }.getType());
                 if (hotSaleBean != null) {
                     if (pagrSize==1){
                         dataBeans.clear();
                     }
                     dataBeans.addAll(hotSaleBean.getData());
-                    saleHotAdapter = new TuiJianAdapter(mContext, dataBeans, R.layout.item_tab_list);
-                    if (getView()!=null){
+                    if (saleHotAdapter==null){
+                        saleHotAdapter = new TuiJianAdapter(mContext, dataBeans, R.layout.item_tab_list);
                         getView().loadSaleHot(saleHotAdapter);
-                    }else {
+                        getView().refresh();
+                    }
+                    else {
                         saleHotAdapter.notifyDataSetChanged();
                     }
 

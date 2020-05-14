@@ -56,7 +56,7 @@ import okhttp3.ResponseBody;
  */
 public class MinePresenter extends BasePresenter<MineView> {
 
-        private int count1 = 0;
+    private int count1 = 0;
     private int count2 = 0;
     private int count3 = 0;
     private int count6 = 0;

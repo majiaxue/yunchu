@@ -73,7 +73,7 @@ public class MineOrderParentAdapter extends MyRecyclerAdapter<MineOrderBean.Orde
 
         holder.setText(R.id.mine_order_parent_shop, data.getSellerName());
 
-        holder.setText(R.id.mine_order_parent_total, "共" + data.getTotalCount() + "件商品  合计：￥" + data.getTotalAmount());
+        holder.setText(R.id.mine_order_parent_total, "共" + data.getTotalCount() + "件商品  合计：￥" + data.getPayAmount());
 
         viewTwoOnClickListener.ViewTwoOnClick( holder.getView(R.id.mine_order_parent_btn_left), holder.getView(R.id.mine_order_parent_btn_right), position);
 

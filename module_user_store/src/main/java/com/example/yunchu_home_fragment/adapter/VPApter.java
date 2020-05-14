@@ -1,14 +1,17 @@
 package com.example.yunchu_home_fragment.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 import com.example.mvp.BaseFragment;
 
 import java.util.ArrayList;
 
-public class VPApter extends FragmentPagerAdapter {
+public class VPApter extends FragmentStatePagerAdapter {
     private ArrayList<BaseFragment> mFragment;
 
     public VPApter(FragmentManager fm, ArrayList<BaseFragment> fragments) {
@@ -24,5 +27,10 @@ public class VPApter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return mFragment.size();
+    }
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+
     }
 }

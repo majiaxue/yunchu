@@ -6,18 +6,24 @@ import android.widget.TextView;
 
 import com.example.adapter.MyRecyclerAdapter;
 import com.example.adapter.RecyclerViewHolder;
+import com.example.bean.HotSaleBean;
 import com.example.bean.TuiJIanBean;
 import com.example.user_store.R;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-public class TuiJianAdapter extends MyRecyclerAdapter<TuiJIanBean.DataBean> {
-    public TuiJianAdapter(Context context, List<TuiJIanBean.DataBean> mList, int mLayoutId) {
+public class TuiJianAdapter extends MyRecyclerAdapter<HotSaleBean.DataBean> {
+    public TuiJianAdapter(Context context, List<HotSaleBean.DataBean> mList, int mLayoutId) {
         super(context, mList, mLayoutId);
     }
 
     @Override
-    public void convert(RecyclerViewHolder holder, TuiJIanBean.DataBean data, int position) {
+    public void convert(RecyclerViewHolder holder, HotSaleBean.DataBean data, int position) {
+        BigDecimal bigDecimal=new BigDecimal(data.getPrice());
+        double v = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        BigDecimal big=new BigDecimal(data.getVipPrice());
+        double v1 = big.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         holder.setText(R.id.tv_prodect,data.getName())
                 .setText(R.id.induce,data.getProductCategoryName())
                 .setText(R.id.price,"￥"+data.getPrice())

@@ -65,12 +65,12 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
     private List<BannerBean.RecordsBean> beanList;
     private List<String> data=new ArrayList<>();
     private List<View> views = new ArrayList<>();
-    private List<TeJIaBean.DataBean> saleHotList = new ArrayList<>();
+    private List<HotSaleBean.DataBean> saleHotList = new ArrayList<>();
     private List<NavBarBean.RecordsBean> navbarList = new ArrayList<>();
     private TeJiaAdapter saleHotAdapter;
     private String[] split1;
     private List<String> list;
-    private List<TuiJIanBean.DataBean> dataBeans=new ArrayList<>();
+    private List<HotSaleBean.DataBean> dataBeans=new ArrayList<>();
     private TuiJianAdapter shouYeAdapter;
     private TabBean saiQu2Beans;
 
@@ -159,7 +159,7 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
                 public void onSuccess(String result, String msg) {
                     getView().refresh();
                     LogUtil.e("首页推荐: " + result);
-                    final TuiJIanBean hotSaleBean = JSON.parseObject(result, new TypeReference<TuiJIanBean>() {
+                    final HotSaleBean hotSaleBean = JSON.parseObject(result, new TypeReference<HotSaleBean>() {
                     }.getType());
                     if (hotSaleBean != null) {
                         if (pagrSize==1){
@@ -339,12 +339,23 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
             @Override
             public void onSuccess(String result, String msg) {
                 LogUtil.e("天天特价: " + result);
-                TeJIaBean teJIaBean = JSON.parseObject(result, TeJIaBean.class);
+                HotSaleBean teJIaBean = JSON.parseObject(result, HotSaleBean.class);
+                LogUtil.e("解析后帆帆帆帆-------------"+teJIaBean.toString());
+                if (hotSaleIndex==1){
+                    saleHotList.clear();
+                }
                 saleHotList.addAll(teJIaBean.getData());
+                LogUtil.e("呵呵哒"+saleHotList.toString());
+                if (saleHotAdapter==null){
+                    LogUtil.e("走了1");
                     saleHotAdapter = new TeJiaAdapter(mContext, saleHotList, R.layout.item_tejia);
-                    if (getView()!=null){
-                        getView().loadSaleHot(saleHotAdapter);
-                    }
+                    LogUtil.e("走了2");
+                    getView().loadSaleHot(saleHotAdapter);
+                    LogUtil.e("走了3");
+                    getView().refresh();
+                }else {
+                    saleHotAdapter.notifyDataSetChanged();
+                }
                     saleHotAdapter.setOnItemClick(new MyRecyclerAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(RecyclerView parent, View view, int position) {
@@ -355,10 +366,6 @@ public class YunChuHomePresenter extends BasePresenter<YunChuHomeView> {
                             mContext.startActivity(intent);
                         }
                     });
-                    if (getView() != null) {
-
-                        getView().refresh();
-                    }
             }
 
             @Override

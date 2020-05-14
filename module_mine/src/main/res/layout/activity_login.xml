@@ -62,16 +62,31 @@
                 android:includeFontPadding="false"
                 android:text="@string/read_and_accept"
                 android:textColor="#666666"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_13" />
 
             <TextView
                 android:id="@+id/register_user_agreement"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="@string/users_agreement"
+                android:text="《服务协议》"
                 android:textColor="#fb4119"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_13" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="和"
+                android:textColor="#666666"
+                android:textSize="@dimen/sp_13" />
+            <TextView
+                android:id="@+id/register_user_yingsi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="《隐私政策》"
+                android:textColor="#fb4119"
+                android:textSize="@dimen/sp_13" />
         </LinearLayout>
 
     </RelativeLayout>

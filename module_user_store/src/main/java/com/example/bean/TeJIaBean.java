@@ -105,7 +105,7 @@ public class TeJIaBean  {
         private int verifyStatus;
         private int sort;
         private int sale;
-        private double price;
+        private String price;
         private int promotionPrice;
         private int giftGrowth;
         private int giftPoint;
@@ -263,11 +263,11 @@ public class TeJIaBean  {
             this.sale = sale;
         }
 
-        public double getPrice() {
+        public String getPrice() {
             return price;
         }
 
-        public void setPrice(double price) {
+        public void setPrice(String price) {
             this.price = price;
         }
 

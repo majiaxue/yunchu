@@ -61,6 +61,10 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
     TextView settingCacheTxt;
     @BindView(R2.id.setting_temp)
     TextView settingTemp;
+    @BindView(R2.id.fuwu)
+    TextView fuwu;
+    @BindView(R2.id.yinsi)
+    TextView yinsi;
 
     private String totalCache;
     private boolean isLoad = true;
@@ -159,6 +163,18 @@ public class SettingActivity extends BaseActivity<SettingView, SettingPresenter>
                     Intent intent=new Intent(SettingActivity.this, MiMaActivity.class);
                     startActivity(intent);
                 }
+            }
+        });
+        fuwu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ARouter.getInstance().build("/mine/agreement").withString("type", "zcxy").navigation();
+            }
+        });
+        yinsi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ARouter.getInstance().build("/mine/agreement").withString("type", "yhxy").navigation();
             }
         });
     }

@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.alibaba.fastjson.JSON;
+import com.example.bean.ContactUsBean;
 import com.example.bean.OrderDetailBean;
 import com.example.common.CommonResource;
 import com.example.module_user_mine.R;
@@ -110,14 +112,14 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsView, OrderDe
         orderDetailsContactSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                call("13369421439");
+                call();
             }
         });
 
         orderDetailsConsultCustomerService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                call("13369421439");
+                call();
             }
         });
 
@@ -134,11 +136,26 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsView, OrderDe
     }
 
     //调起电话
-    private void call(String call) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + call));
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //开启系统拨号器
-        startActivity(intent);
+    private void call() {
+
+        Observable<ResponseBody> dataWithout = RetrofitUtil.getInstance().getApi(CommonResource.BASEURL_4001).getDataWithout(CommonResource.PHOTO);
+        RetrofitUtil.getInstance().toSubscribe(dataWithout,new OnMyCallBack(new OnDataListener() {
+            @Override
+            public void onSuccess(String result, String msg) {
+                LogUtil.e("客服的接口------------"+result);
+                ContactUsBean contactUsBean = JSON.parseObject(result, ContactUsBean.class);
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + contactUsBean.getInfo()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //开启系统拨号器
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(String errorCode, String errorMsg) {
+
+            }
+        }));
+
 
     }
 
@@ -148,7 +165,7 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsView, OrderDe
         orderDetailsPhone.setText(orderDetailBean.getReceiverPhone()+"");
         orderDetailsAddress.setText(orderDetailBean.getReceiverRegion() + orderDetailBean.getReceiverCity() + orderDetailBean.getReceiverProvince() + orderDetailBean.getOrderAddress());
         orderDetailsName.setText(orderDetailBean.getReceiverName()+"");
-        orderDetailsGoodsPrice.setText("￥" + orderDetailBean.getTotalAmount());
+        orderDetailsGoodsPrice.setText("￥" + orderDetailBean.getPayAmount());
         orderDetailsFreight.setText("￥" + orderDetailBean.getFreightAmount());
         orderDetailsCoupon.setText("￥" + orderDetailBean.getCouponAmount());
         orderDetailsActualPayment.setText("￥" + orderDetailBean.getPayAmount());

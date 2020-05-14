@@ -9,21 +9,26 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.adapter.MyRecyclerAdapter;
 import com.example.adapter.RecyclerViewHolder;
+import com.example.bean.HotSaleBean;
 import com.example.bean.TeJIaBean;
 import com.example.user_store.R;
 import com.example.utils.ArithUtil;
+import com.example.utils.LogUtil;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-public class TeJiaAdapter  extends MyRecyclerAdapter<TeJIaBean.DataBean> {
-    public TeJiaAdapter(Context context, List<TeJIaBean.DataBean> mList, int mLayoutId) {
+public class TeJiaAdapter  extends MyRecyclerAdapter<HotSaleBean.DataBean> {
+    public TeJiaAdapter(Context context, List<HotSaleBean.DataBean> mList, int mLayoutId) {
         super(context, mList, mLayoutId);
     }
 
     @Override
-    public void convert(RecyclerViewHolder holder, TeJIaBean.DataBean data, int position) {
-        double exact = ArithUtil.exact(data.getPrice(), 2);
-        holder.setText(R.id.tv_price,"￥"+exact);
+    public void convert(RecyclerViewHolder holder, HotSaleBean.DataBean data, int position) {
+//        BigDecimal big = new BigDecimal(data.getPrice());
+        LogUtil.e("价格---------"+data.getPrice());
+        //double exact = ArithUtil.exact(data.getPrice(), 2);
+        holder.setText(R.id.tv_price,"￥"+data.getPrice());
         ImageView img = holder.itemView.findViewById(R.id.img_tejia);
         //设置图片圆角角度
         RoundedCorners roundedCorners= new RoundedCorners(20);

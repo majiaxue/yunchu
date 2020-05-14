@@ -105,7 +105,7 @@ public class TuiJIanBean  {
         private int verifyStatus;
         private int sort;
         private int sale;
-        private int price;
+        private double price;
         private int promotionPrice;
         private int giftGrowth;
         private int giftPoint;
@@ -263,11 +263,11 @@ public class TuiJIanBean  {
             this.sale = sale;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

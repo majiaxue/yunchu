@@ -94,6 +94,8 @@ public class TypeDetailActivity extends BaseActivity<TypeDetailView, TypeDetailP
     String recommandStatus ;
     @Autowired(name = "newStatus")
     String newStatus;
+    @Autowired(name = "type")
+    String type;
     @Override
     public int getLayoutId() {
         return R.layout.activity_type_detail;
@@ -111,7 +113,7 @@ public class TypeDetailActivity extends BaseActivity<TypeDetailView, TypeDetailP
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         itemDecoration = new RvItemDecoration((int) getResources().getDimension(R.dimen.dp_13), (int) getResources().getDimension(R.dimen.dp_10));
-        presenter.loadData(searchString, categoryId, isHotSale,rebateStatus,newStatus);
+        presenter.loadData(searchString, categoryId, isHotSale,rebateStatus,newStatus,type);
 
 
         //下拉刷新样式
@@ -225,7 +227,7 @@ public class TypeDetailActivity extends BaseActivity<TypeDetailView, TypeDetailP
         boolean booleanExtra = intent.getBooleanExtra("isHotSale",false);
         mSearch.setText(searchString);
         LogUtil.e("+++++++booleanExtra+++++"+booleanExtra);
-        presenter.loadData(searchString, categoryId, booleanExtra,rebateStatus,newStatus);
+        presenter.loadData(searchString, categoryId, booleanExtra,rebateStatus,newStatus,type);
     }
     @Override
     public void updateTitle(boolean salesVolume, boolean price, boolean credit) {

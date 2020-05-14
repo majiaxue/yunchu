@@ -7,4 +7,7 @@ public interface TabListView  extends IView {
     void loadSaleHot(TuiJianAdapter saleHotAdapter);
 
     void refresh();
+
+    void refreshsuccess();
+
 }

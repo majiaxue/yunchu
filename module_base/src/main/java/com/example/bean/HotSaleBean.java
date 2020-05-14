@@ -135,6 +135,15 @@ public class HotSaleBean implements Serializable {
         private double returnRatio;
         private int rebateStatus;
         private String commentNum;
+        private double vipPrice;
+
+        public double getVipPrice() {
+            return vipPrice;
+        }
+
+        public void setVipPrice(double vipPrice) {
+            this.vipPrice = vipPrice;
+        }
 
         public double getReturnRatio() {
             return returnRatio;

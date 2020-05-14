@@ -14,6 +14,7 @@ import com.example.common.CommonResource;
 import com.example.module_mine.R;
 import com.example.module_mine.R2;
 import com.example.mvp.BaseActivity;
+import com.example.utils.LogUtil;
 
 import butterknife.BindView;
 
@@ -49,7 +50,7 @@ public class UserAgreementActivity extends BaseActivity<UserAgreementView, UserA
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
 
         agrementWebview.loadUrl(CommonResource.BASEURL_9005 + CommonResource.USER_AGREEMENT + "/" + type);
-
+        LogUtil.e("url--------------"+CommonResource.BASEURL_9005 + CommonResource.USER_AGREEMENT + "/" + type);
         agrementWebview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

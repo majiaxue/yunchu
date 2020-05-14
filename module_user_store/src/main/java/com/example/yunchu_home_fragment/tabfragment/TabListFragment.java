@@ -39,14 +39,6 @@ public class TabListFragment extends BaseFragment<TabListView, TabListPresenter>
 
     }
 
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if (isVisibleToUser){
-//            presenter.getData(id,page);
-//        }
-//    }
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_tablist;
@@ -101,6 +93,11 @@ public class TabListFragment extends BaseFragment<TabListView, TabListPresenter>
     public void refresh() {
         smart.finishRefresh();
         smart.finishLoadMore();
+
+    }
+
+    @Override
+    public void refreshsuccess() {
 
     }
 }

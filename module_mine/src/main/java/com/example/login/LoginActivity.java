@@ -45,6 +45,10 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     ImageView registerCheck;
     @BindView(R2.id.register_user_agreement)
     TextView registerUserAgreement;
+    //register_user_yingsi
+    @BindView(R2.id.register_user_yingsi)
+    TextView register_user_yingsi;
+
     @Autowired(name = "manager")
     int manager;
 
@@ -72,6 +76,14 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         registerUserAgreement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ARouter.getInstance().build("/mine/agreement").withString("type", "zcxy").navigation();
+            }
+        });
+        register_user_yingsi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //yhxy
+                //zcxy
                 ARouter.getInstance().build("/mine/agreement").withString("type", "yhxy").navigation();
             }
         });

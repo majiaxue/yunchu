@@ -73,6 +73,10 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
                     Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(mContext, "支付失败", Toast.LENGTH_SHORT).show();
+                    ARouter.getInstance().build("/module_user_mine/MineOrderActivity")
+                            .withInt("type", 1)
+                            .navigation();
+                    ((Activity) mContext).finish();
                 }
             }
         }
@@ -103,6 +107,9 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
             @Override
             public void onError(String errorCode, String errorMsg) {
                 LogUtil.e("余额支付onError" + errorCode);
+                ARouter.getInstance().build("/module_user_mine/MineOrderActivity")
+                        .withInt("type", 1)
+                        .navigation();
                 Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show();
             }
         }));
@@ -309,6 +316,9 @@ public class PaymentPresenter extends BasePresenter<PaymentView> {
         dialog.setYesOnclickListener("确定", new SelfDialog.onYesOnclickListener() {
             @Override
             public void onYesClick() {
+                ARouter.getInstance().build("/module_user_mine/MineOrderActivity")
+                        .withInt("type", 1)
+                        .navigation();
                 dialog.dismiss();
                 ((Activity) mContext).finish();
             }
