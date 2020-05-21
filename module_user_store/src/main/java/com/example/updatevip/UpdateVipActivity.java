@@ -27,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
+//升级vip界面
 @Route(path = "/user_store/UpdateVipActivity")
 public class UpdateVipActivity extends BaseActivity<UpdateVipView, UpdateVipPresenter> implements UpdateVipView {
     @BindView(R2.id.img_back)
